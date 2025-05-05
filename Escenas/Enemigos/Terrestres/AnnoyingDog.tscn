@@ -1,0 +1,177 @@
+[gd_scene load_steps=15 format=3 uid="uid://c4el6xd1v2h6k"]
+
+[ext_resource type="Script" uid="uid://djr2i6rb7nq61" path="res://Scripts/Enemigos/Terrestres/CarDog/AnnoyingDogEnemyController.gd" id="1_0ubcw"]
+[ext_resource type="Texture2D" uid="uid://61oer7wmsjn3" path="res://Sprites/Enemigos/AnnoyingDog/caminar.png" id="2_0d1y2"]
+[ext_resource type="Texture2D" uid="uid://d3hp6bpb4433a" path="res://Sprites/Iluminacion/Ambientacion/Luz circulo.png" id="3_35cy5"]
+[ext_resource type="PackedScene" uid="uid://d27ehuihyb61u" path="res://Escenas/Utilidades/EfectoAnim.tscn" id="4_akeet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s4lp"]
+atlas = ExtResource("2_0d1y2")
+region = Rect2(162, 0, 93, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iio6g"]
+atlas = ExtResource("2_0d1y2")
+region = Rect2(34, 0, 93, 110)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vaixv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}],
+"loop": false,
+"name": &"cooldown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}],
+"loop": false,
+"name": &"salto",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iio6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s4lp")
+}],
+"loop": false,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qni6u"]
+size = Vector2(71.7151, 61.2782)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1ipu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lh2ct"]
+size = Vector2(75.9665, 68.9451)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p12ld"]
+size = Vector2(2062, 594.08)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4482f"]
+size = Vector2(9.43598, 37.8831)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ox0l"]
+size = Vector2(409.63, 336.329)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sgnvv"]
+
+[node name="AnnoyingDog" type="CharacterBody2D" groups=["enemigo"]]
+position = Vector2(-2, 34)
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_0ubcw")
+
+[node name="Textura" type="AnimatedSprite2D" parent="."]
+light_mask = 2048
+position = Vector2(0.369663, -3.56789)
+scale = Vector2(0.888144, 0.798437)
+sprite_frames = SubResource("SpriteFrames_vaixv")
+animation = &"walk"
+
+[node name="ColisionEnemigo" type="CollisionShape2D" parent="."]
+position = Vector2(1.10901, 5.36092)
+shape = SubResource("RectangleShape2D_qni6u")
+
+[node name="Cerca" type="Area2D" parent="."]
+visible = false
+position = Vector2(2, 0)
+collision_layer = 0
+collision_mask = 17
+
+[node name="Colision" type="CollisionShape2D" parent="Cerca"]
+visible = false
+shape = SubResource("RectangleShape2D_q1ipu")
+
+[node name="AreaDaño" type="Area2D" parent="."]
+visible = false
+position = Vector2(0.369678, -8.69181)
+
+[node name="Colision" type="CollisionShape2D" parent="AreaDaño"]
+visible = false
+position = Vector2(0.647075, 10.2192)
+shape = SubResource("RectangleShape2D_lh2ct")
+
+[node name="DetectarT" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(2, 16)
+target_position = Vector2(0, 12)
+collision_mask = 8
+
+[node name="AreaDeteccion" type="Area2D" parent="."]
+visible = false
+position = Vector2(0.369694, -10.0582)
+collision_layer = 17
+collision_mask = 17
+
+[node name="Colision" type="CollisionShape2D" parent="AreaDeteccion"]
+visible = false
+position = Vector2(0.630275, -252.902)
+shape = SubResource("RectangleShape2D_p12ld")
+
+[node name="DetectorPiso" type="Area2D" parent="."]
+visible = false
+position = Vector2(46, 53)
+collision_layer = 0
+collision_mask = 8
+
+[node name="Colision" type="CollisionShape2D" parent="DetectorPiso"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_4482f")
+
+[node name="AreaActivadora" type="Area2D" parent="."]
+visible = false
+position = Vector2(2, 3)
+collision_layer = 17
+collision_mask = 17
+
+[node name="Colision" type="CollisionShape2D" parent="AreaActivadora"]
+position = Vector2(244.815, -124.777)
+shape = SubResource("RectangleShape2D_3ox0l")
+
+[node name="Luz" type="PointLight2D" parent="."]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_sgnvv")
+scale = Vector2(0.5, 0.5)
+enabled = false
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 2048
+texture = ExtResource("3_35cy5")
+
+[node name="Animacion" parent="." instance=ExtResource("4_akeet")]
+
+[connection signal="body_entered" from="Cerca" to="." method="_on_cerca_body_entered"]
+[connection signal="body_exited" from="Cerca" to="." method="_on_cerca_body_exited"]
+[connection signal="body_entered" from="AreaDaño" to="." method="_on_area_daño_body_entered"]
+[connection signal="body_entered" from="AreaDeteccion" to="." method="_on_area_deteccion_body_entered"]
+[connection signal="body_exited" from="AreaDeteccion" to="." method="_on_area_deteccion_body_exited"]
+[connection signal="body_entered" from="DetectorPiso" to="." method="_on_detector_piso_body_entered"]
+[connection signal="body_exited" from="DetectorPiso" to="." method="_on_detector_piso_body_exited"]
+[connection signal="body_entered" from="AreaActivadora" to="." method="_on_area_activadora_body_entered"]

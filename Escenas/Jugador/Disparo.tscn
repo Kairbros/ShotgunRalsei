@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://dadp261t1883d"]
+
+[ext_resource type="Texture2D" uid="uid://dej8b0moyyteh" path="res://Sprites/Jugador/balas.png" id="1_3k2ic"]
+[ext_resource type="Script" uid="uid://dwjbw0galsywy" path="res://Scripts/Jugador/DisparoControl.gd" id="1_14fbg"]
+[ext_resource type="Texture2D" uid="uid://ookufle57w6v" path="res://Sprites/Iluminacion/Ambientacion/Cuadrado.png" id="3_i60b0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46t4n"]
+atlas = ExtResource("1_3k2ic")
+region = Rect2(0, 0, 44, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fb1h"]
+atlas = ExtResource("1_3k2ic")
+region = Rect2(44, 0, 44, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2rl8"]
+atlas = ExtResource("1_3k2ic")
+region = Rect2(88, 0, 44, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4infe"]
+atlas = ExtResource("1_3k2ic")
+region = Rect2(132, 0, 44, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jl3yb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46t4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46t4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46t4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fb1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fb1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fb1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2rl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2rl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2rl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4infe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4infe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4infe")
+}],
+"loop": false,
+"name": &"Fogonazo",
+"speed": 40.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek27h"]
+size = Vector2(253.333, 246)
+
+[node name="Bala" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 74
+script = ExtResource("1_14fbg")
+metadata/_edit_horizontal_guides_ = []
+
+[node name="Textura" type="AnimatedSprite2D" parent="."]
+light_mask = 32
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_jl3yb")
+animation = &"Fogonazo"
+frame = 11
+frame_progress = 1.0
+
+[node name="Colision" type="CollisionShape2D" parent="."]
+position = Vector2(-200, 0)
+scale = Vector2(0.3, 0.3)
+shape = SubResource("RectangleShape2D_ek27h")
+
+[node name="Luz" type="PointLight2D" parent="."]
+light_mask = 513
+position = Vector2(-5, -2)
+range_item_cull_mask = 32
+texture = ExtResource("3_i60b0")
+
+[connection signal="body_entered" from="." to="." method="_impacto"]

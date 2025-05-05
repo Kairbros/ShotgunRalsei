@@ -1,0 +1,147 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtufthtiv223j"]
+
+[ext_resource type="Script" path="res://Scripts/Menu/Menu.gd" id="1_ga2u4"]
+[ext_resource type="Texture2D" uid="uid://b83q188gy46ly" path="res://Sprites/HUD/black2.png" id="2_oyy7d"]
+[ext_resource type="FontFile" uid="uid://d1q2mwgmv85fn" path="res://Fuentes/undertale-deltarune-text-font-extended.ttf" id="3_qnujn"]
+[ext_resource type="Texture2D" uid="uid://beqrful24eimm" path="res://Sprites/Menus/MainMenu/RalseiShotgun.png" id="4_8ov5o"]
+[ext_resource type="Texture2D" uid="uid://c35dkymbvbjn3" path="res://Sprites/Menus/MainMenu/Note.png" id="4_hkwog"]
+[ext_resource type="Texture2D" uid="uid://c7hlsasdpnbx7" path="res://Sprites/Menus/MainMenu/Ralsei.png" id="5_ecogj"]
+
+[node name="Menu" type="Node2D"]
+scale = Vector2(1.2, 1.2)
+script = ExtResource("1_ga2u4")
+metadata/_edit_horizontal_guides_ = []
+
+[node name="Fondo" type="TextureRect" parent="."]
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 2002.0
+offset_bottom = 1888.0
+scale = Vector2(0.8, 0.48)
+texture = ExtResource("2_oyy7d")
+
+[node name="ControlImages" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1183.0
+offset_top = 693.0
+offset_right = 1223.0
+offset_bottom = 733.0
+
+[node name="Nota" type="TextureRect" parent="ControlImages"]
+layout_mode = 0
+offset_left = -108.833
+offset_top = -693.0
+offset_right = 242.167
+offset_bottom = -328.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_hkwog")
+
+[node name="RalseiPic" type="TextureRect" parent="ControlImages"]
+layout_mode = 0
+offset_left = -1259.0
+offset_top = -712.0
+offset_right = -357.0
+offset_bottom = 236.0
+texture = ExtResource("4_8ov5o")
+
+[node name="RalseiNote" type="TextureRect" parent="ControlImages"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = -497.0
+offset_right = 304.0
+offset_bottom = -444.0
+scale = Vector2(4.5, 4.5)
+texture = ExtResource("5_ecogj")
+flip_h = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BotonInicio" type="LinkButton" parent="Control"]
+layout_mode = 0
+offset_left = 714.0
+offset_top = 565.0
+offset_right = 1049.0
+offset_bottom = 766.0
+theme_override_colors/font_color = Color(0.454902, 1, 0.737255, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_qnujn")
+theme_override_font_sizes/font_size = 100
+text = "JUGAR"
+underline = 2
+
+[node name="BotonSalida" type="LinkButton" parent="Control"]
+layout_mode = 0
+offset_left = 1105.0
+offset_top = 566.0
+offset_right = 1440.0
+offset_bottom = 767.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_qnujn")
+theme_override_font_sizes/font_size = 100
+text = "SALIR
+"
+underline = 2
+
+[node name="LinkButton" type="LinkButton" parent="Control"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 53.0
+offset_right = 606.0
+offset_bottom = 105.0
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.352941, 0.960784, 0.603922, 1)
+theme_override_fonts/font = ExtResource("3_qnujn")
+theme_override_font_sizes/font_size = 20
+text = "Arte Por PeculiarCanine (Click Aqui)"
+underline = 2
+uri = "https://www.deviantart.com/peculiarcanine/gallery"
+
+[node name="LinkButtonDeltarune" type="LinkButton" parent="Control"]
+layout_mode = 0
+offset_left = 8.33333
+offset_top = 862.5
+offset_right = 488.333
+offset_bottom = 914.5
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.352941, 0.960784, 0.603922, 1)
+theme_override_fonts/font = ExtResource("3_qnujn")
+theme_override_font_sizes/font_size = 20
+text = "Juego Parodia De Deltarune (Obten El Juego Original Aqui)"
+underline = 2
+uri = "https://deltarune.com/"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 1098.0
+offset_top = 41.0
+offset_right = 1549.0
+offset_bottom = 508.0
+theme_override_fonts/normal_font = ExtResource("3_qnujn")
+theme_override_font_sizes/normal_font_size = 25
+text = "* V: Habilidad
+* Q: Gesto
+* C: Dash (Desplazamiento)
+* Z: Disparar  
+* X: Defensa (Parry)
+
+* Izq/Der: Movimiento Lateral
+* Barra Espaciadora: Salto
+"
+
+[node name="Sonido" type="AudioStreamPlayer" parent="."]
+
+[connection signal="mouse_entered" from="Control/BotonInicio" to="." method="_on_boton_inicio_mouse_entered"]
+[connection signal="pressed" from="Control/BotonInicio" to="." method="_on_boton_inicio_pressed"]
+[connection signal="mouse_entered" from="Control/BotonSalida" to="." method="_on_boton_salida_mouse_entered"]
+[connection signal="pressed" from="Control/BotonSalida" to="." method="_on_boton_inicio_2_pressed"]
+[connection signal="mouse_entered" from="Control/LinkButton" to="." method="_on_link_button_mouse_entered"]
+[connection signal="pressed" from="Control/LinkButton" to="." method="_on_link_button_pressed"]
+[connection signal="mouse_entered" from="Control/LinkButtonDeltarune" to="." method="_on_link_button_mouse_entered"]
+[connection signal="pressed" from="Control/LinkButtonDeltarune" to="." method="_on_link_button_pressed"]

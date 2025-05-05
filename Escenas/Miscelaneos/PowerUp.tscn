@@ -1,0 +1,130 @@
+[gd_scene load_steps=12 format=3 uid="uid://ble3ptmdfvijp"]
+
+[ext_resource type="Texture2D" uid="uid://dbqfyavejlv2m" path="res://Sprites/Jugador/powerup.png" id="2_k2dpn"]
+
+[sub_resource type="GDScript" id="GDScript_r0ww8"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+var velocidad : int
+var velocidadA : int
+func _ready():
+	$AnimatedSprite2D.play(\"default\")
+	# Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	
+#	global_position.x += velocidad *delta #toma la posicion y la multiplica por la velocidad
+#	global_position.y += velocidadA * delta
+	$CollisionShape2D.shape.radius += 1
+	await $AnimatedSprite2D.animation_finished
+	
+	queue_free()
+		
+	
+	
+	
+
+func _on_visible_on_screen_enabler_2d_screen_exited():
+	queue_free()
+
+func _on_body_entered(body):
+	var numeroimp : int = 2
+	if body.is_in_group(\"enemigo\"):
+
+		body.dead(numeroimp)
+		await $AnimatedSprite2D.animation_finished
+		queue_free()
+	else: 
+#		$CollisionShape2D.call_deferred(\"free\")
+
+		await $AnimatedSprite2D.animation_finished
+		queue_free() #elimina el objeto
+		
+		
+
+
+	# Replace with function body.
+
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_007ui"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfe1x"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqle4"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki4h7"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3ul6"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5wba"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(50, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k256u"]
+atlas = ExtResource("2_k2dpn")
+region = Rect2(100, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8crg1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_007ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfe1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqle4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki4h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3ul6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5wba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k256u")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lew3q"]
+radius = 124.169
+
+[node name="PowerUp" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = SubResource("GDScript_r0ww8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-2, -469)
+scale = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_8crg1")
+frame = 6
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lew3q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://j8mddnkttpqx"]
+
+[ext_resource type="PackedScene" uid="uid://b0iknmgdrs8x" path="res://Escenas/escenario.tscn" id="1_q84q1"]
+[ext_resource type="Script" path="res://Scripts/juego_test.gd" id="1_wmn1r"]
+[ext_resource type="PackedScene" uid="uid://c356vkqtwmv0e" path="res://Escenas/jugador.tscn" id="3_hx6d8"]
+[ext_resource type="AudioStream" uid="uid://csq0otxccwj6x" path="res://Sonidos/BackgroundFondo.wav" id="5_kh7hv"]
+[ext_resource type="PackedScene" uid="uid://c4el6xd1v2h6k" path="res://Escenas/enemigo.tscn" id="5_wsa7a"]
+
+[node name="JuegoTest" type="Node2D"]
+script = ExtResource("1_wmn1r")
+
+[node name="SonidoBackground" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kh7hv")
+volume_db = -9.0
+
+[node name="SueloReal" parent="." instance=ExtResource("1_q84q1")]
+position = Vector2(1395, 1034)
+
+[node name="Player" parent="." instance=ExtResource("3_hx6d8")]
+position = Vector2(3565, 614)
+collision_mask = 9
+
+[node name="Enemigo" parent="." instance=ExtResource("5_wsa7a")]
+position = Vector2(3992, 617)

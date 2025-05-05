@@ -1,0 +1,83 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://dwqre0olxfl2g"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_g6870"]
+default_input_values = [0, 0.0, 1, 15.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_sowm8"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_n6ncy"]
+expanded_output_ports = [0]
+source = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_v45ov"]
+default_input_values = [0, 0.0, 1, 1.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_6hjtr"]
+output_port_for_preview = 0
+function = 0
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_33x33"]
+output_port_for_preview = 0
+function = 12
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(TEXTURE, UV);
+	float n_out2p4 = n_out2p0.a;
+
+
+// Input:13
+	float n_out13p0 = TIME;
+
+
+// FloatOp:10
+	float n_in10p1 = 15.00000;
+	float n_out10p0 = n_out13p0 * n_in10p1;
+
+
+// FloatFunc:8
+	float n_out8p0 = sin(n_out10p0);
+
+
+// FloatFunc:9
+	float n_out9p0 = abs(n_out8p0);
+
+
+// FloatOp:6
+	float n_out6p0 = n_out2p4 * n_out9p0;
+
+
+// Output:0
+	COLOR.a = n_out6p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(880, 220)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_n6ncy")
+nodes/fragment/2/position = Vector2(100, 140)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_v45ov")
+nodes/fragment/6/position = Vector2(680, 280)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatFunc_6hjtr")
+nodes/fragment/8/position = Vector2(260, 400)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatFunc_33x33")
+nodes/fragment/9/position = Vector2(440, 400)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatOp_g6870")
+nodes/fragment/10/position = Vector2(100, 400)
+nodes/fragment/13/node = SubResource("VisualShaderNodeInput_sowm8")
+nodes/fragment/13/position = Vector2(-340, 320)
+nodes/fragment/connections = PackedInt32Array(6, 0, 0, 1, 8, 0, 9, 0, 9, 0, 6, 1, 10, 0, 8, 0, 13, 0, 10, 0, 2, 4, 6, 0)
+nodes/light/0/position = Vector2(600, 140)

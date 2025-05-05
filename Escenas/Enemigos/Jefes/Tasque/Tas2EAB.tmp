@@ -1,0 +1,445 @@
+[gd_scene load_steps=34 format=3 uid="uid://beuftcdb0m1m0"]
+
+[ext_resource type="Script" path="res://Scripts/Miscelaneos/TasqueAttack/TasqueController.gd" id="1_tidtp"]
+[ext_resource type="PackedScene" uid="uid://vxcqxrw00fkp" path="res://Escenas/Enemigos/Jefes/Tasque/TasqueStages/TasqueAttacks.tscn" id="2_u8d2h"]
+[ext_resource type="PackedScene" uid="uid://xgqu8n1nc4un" path="res://Escenas/Miscelaneos/alertaLuz.tscn" id="3_wtt76"]
+[ext_resource type="PackedScene" uid="uid://c4el6xd1v2h6k" path="res://Escenas/Enemigos/Terrestres/DogCar.tscn" id="4_vqggi"]
+[ext_resource type="Shader" uid="uid://dwqre0olxfl2g" path="res://Shader/Disolver.tres" id="5_3t3bk"]
+[ext_resource type="Texture2D" uid="uid://dt1gasowmt6om" path="res://Sprites/Enemigos/TasqueBoss/TasqueIndividual.png" id="6_l22ow"]
+[ext_resource type="Texture2D" uid="uid://c8o034vhosblx" path="res://Sprites/Particulas/tasqueP.png" id="7_863pg"]
+[ext_resource type="Texture2D" uid="uid://ookufle57w6v" path="res://Sprites/Iluminacion/Ambientacion/Cuadrado.png" id="8_8vsj7"]
+[ext_resource type="Texture2D" uid="uid://p2h4uefrp2a7" path="res://Sprites/Iluminacion/Ambientacion/Luz cono.png" id="9_44q3f"]
+
+[sub_resource type="Animation" id="Animation_h8rl5"]
+resource_name = "Default"
+length = 0.400002
+loop_mode = 2
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimNode/ManoCon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0523599, -0.0523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimNode/ManoSin:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimNode/Cabeza:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0349066, -0.0349066]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimNode/Cola:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0349066, 0.0523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimNode/Torso:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0349066, -0.0523599]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimNode/ManoCon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_avsrq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimNode/ManoCon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.129839]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimNode/ManoSin:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0523599]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimNode/Cabeza:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0523599]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimNode/Cola:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimNode/Torso:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0349066]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimNode/ManoCon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kk0aa"]
+_data = {
+"Default": SubResource("Animation_h8rl5"),
+"RESET": SubResource("Animation_avsrq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wtx60"]
+shader = ExtResource("5_3t3bk")
+shader_parameter/ModulateShader = Color(0, 0, 0, 1)
+shader_parameter/fade = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56asm"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 207, 60, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bmrqj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56asm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wt256"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 138, 60, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htmwd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wt256")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tf31"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 82, 60, 82)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6h7xe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tf31")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f78fv"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 0, 60, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8v2w"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 0, 60, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bv7aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f78fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8v2w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjn4x"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 345, 60, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_365la"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjn4x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rtnc"]
+atlas = ExtResource("6_l22ow")
+region = Rect2(0, 276, 60, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whduh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rtnc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_j3gg2"]
+offsets = PackedFloat32Array(0.209945, 0.486188, 0.751381)
+colors = PackedColorArray(0, 1, 1, 0.34902, 0, 1, 1, 0.117647, 0, 1, 1, 0.0705882)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_al0h4"]
+gradient = SubResource("Gradient_j3gg2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ahvs7"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.5
+scale_max = 2.5
+color_ramp = SubResource("GradientTexture1D_al0h4")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ml82e"]
+blend_mode = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oql47"]
+size = Vector2(21, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ulwd"]
+size = Vector2(1466.8, 705)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a4c5h"]
+
+[node name="Tasque" type="CharacterBody2D" groups=["enemigo", "jefe"]]
+scale = Vector2(2.5, 2.5)
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("1_tidtp")
+cat = ExtResource("2_u8d2h")
+alert = ExtResource("3_wtt76")
+car = ExtResource("4_vqggi")
+
+[node name="Animacion" type="AnimationPlayer" parent="."]
+autoplay = "Default"
+libraries = {
+"": SubResource("AnimationLibrary_kk0aa")
+}
+
+[node name="AnimNode" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_wtx60")
+position = Vector2(9.6, -34.4)
+
+[node name="Cola" type="AnimatedSprite2D" parent="AnimNode"]
+light_mask = 2
+rotation = -0.0523599
+sprite_frames = SubResource("SpriteFrames_bmrqj")
+
+[node name="Piernas" type="AnimatedSprite2D" parent="AnimNode"]
+light_mask = 2
+sprite_frames = SubResource("SpriteFrames_htmwd")
+
+[node name="Torso" type="AnimatedSprite2D" parent="AnimNode"]
+light_mask = 2
+position = Vector2(0, 19.6)
+rotation = 0.0349066
+sprite_frames = SubResource("SpriteFrames_6h7xe")
+
+[node name="Cabeza" type="AnimatedSprite2D" parent="AnimNode"]
+light_mask = 2
+position = Vector2(0.4, -1.2)
+rotation = 0.0523599
+sprite_frames = SubResource("SpriteFrames_bv7aa")
+
+[node name="ManoSin" type="AnimatedSprite2D" parent="AnimNode"]
+light_mask = 2
+rotation = -0.0523599
+sprite_frames = SubResource("SpriteFrames_365la")
+
+[node name="ManoCon" type="AnimatedSprite2D" parent="AnimNode"]
+visible = false
+light_mask = 2
+rotation = 0.129839
+sprite_frames = SubResource("SpriteFrames_whduh")
+
+[node name="Particula" type="GPUParticles2D" parent="."]
+light_mask = 512
+position = Vector2(-9.4, -34.4001)
+scale = Vector2(2.5, 2.5)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ahvs7")
+texture = ExtResource("7_863pg")
+lifetime = 0.4
+
+[node name="Luz" type="PointLight2D" parent="Particula"]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_ml82e")
+position = Vector2(27.08, -5.75998)
+scale = Vector2(0.619467, 0.279467)
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 514
+texture = ExtResource("8_8vsj7")
+
+[node name="Colision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.4, -34.0002)
+shape = SubResource("RectangleShape2D_oql47")
+
+[node name="Rayo" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(0, -1.6)
+target_position = Vector2(2.98023e-08, 2.8)
+collision_mask = 8
+
+[node name="AparecerCat" type="Marker2D" parent="."]
+visible = false
+scale = Vector2(0.1, 0.1)
+
+[node name="CatDetector" type="Area2D" parent="."]
+visible = false
+position = Vector2(0.599998, -50)
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatDetector"]
+visible = false
+position = Vector2(-0.8, -300)
+shape = SubResource("RectangleShape2D_8ulwd")
+
+[node name="Indicador" type="Marker2D" parent="."]
+
+[node name="Left" type="RayCast2D" parent="."]
+position = Vector2(-11.8, -15.2002)
+target_position = Vector2(-300, 0)
+collision_mask = 8
+
+[node name="Right" type="RayCast2D" parent="."]
+position = Vector2(8.59999, -15.2002)
+target_position = Vector2(300, 0)
+collision_mask = 8
+
+[node name="CarAparecer" type="Marker2D" parent="."]
+position = Vector2(-1.6, -20.0004)
+
+[node name="Luz" type="PointLight2D" parent="."]
+visible = false
+light_mask = 0
+material = SubResource("CanvasItemMaterial_a4c5h")
+position = Vector2(4, -994.8)
+scale = Vector2(0.08, 1)
+enabled = false
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 655
+texture = ExtResource("9_44q3f")
+
+[node name="Sonido" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="CatDetector" to="." method="_on_cat_detector_body_entered"]
+[connection signal="body_exited" from="CatDetector" to="." method="_on_cat_detector_body_exited"]

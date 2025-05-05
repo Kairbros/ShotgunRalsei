@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://xgqu8n1nc4un"]
+
+[ext_resource type="Script" uid="uid://c56p3e4q256eu" path="res://Scripts/Miscelaneos/alerta.gd" id="1_on6nn"]
+[ext_resource type="Texture2D" uid="uid://p2h4uefrp2a7" path="res://Sprites/Iluminacion/Ambientacion/Luz cono.png" id="2_j3dt7"]
+[ext_resource type="Texture2D" uid="uid://b1tuwmwo0vfpv" path="res://Sprites/Enemigos/TasqueBoss/Damage.png" id="3_k0mqk"]
+[ext_resource type="AudioStream" uid="uid://i84qbxxqebdj" path="res://Sonidos/Ambientacion/ClickSound.wav" id="4_s8vdu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1fxj"]
+atlas = ExtResource("3_k0mqk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiom0"]
+atlas = ExtResource("3_k0mqk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jdfo"]
+atlas = ExtResource("3_k0mqk")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atlhu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1fxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiom0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jdfo")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Luz" type="StaticBody2D"]
+scale = Vector2(2.5, 2.5)
+script = ExtResource("1_on6nn")
+
+[node name="TimeSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_atlhu")
+
+[node name="Sonido" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_s8vdu")
+volume_db = -3.0
+
+[node name="Luz" type="PointLight2D" parent="."]
+light_mask = 0
+scale = Vector2(0.1, 1)
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 655
+texture = ExtResource("2_j3dt7")

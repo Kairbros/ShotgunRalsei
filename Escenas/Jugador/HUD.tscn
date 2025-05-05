@@ -1,0 +1,367 @@
+[gd_scene load_steps=33 format=3 uid="uid://0jk8kis3sjs4"]
+
+[ext_resource type="Texture2D" uid="uid://ciwqv37ar1sfx" path="res://Sprites/Fondo/sheet ralsei.png" id="1_4ynqc"]
+[ext_resource type="Script" uid="uid://c8hj2k1cjxib" path="res://Scripts/Jugador/ControlHUD.gd" id="1_bqor6"]
+[ext_resource type="Texture2D" uid="uid://dwqx25cvdovby" path="res://Sprites/HUD/DashIndicatorempty.png" id="3_0ff0a"]
+[ext_resource type="FontFile" uid="uid://ib64n6n3j71r" path="res://Fuentes/deltarune.ttf" id="3_3xqdy"]
+[ext_resource type="Texture2D" uid="uid://cxcj0bldchq3g" path="res://Sprites/HUD/DashIndicator.png" id="3_wdsyq"]
+[ext_resource type="FontFile" uid="uid://d1q2mwgmv85fn" path="res://Fuentes/undertale-deltarune-text-font-extended.ttf" id="4_fqxhr"]
+[ext_resource type="Texture2D" uid="uid://ckm4x1mrp4472" path="res://Sprites/HUD/BAR1.png" id="6_x24kx"]
+[ext_resource type="Texture2D" uid="uid://c38loc2smw07v" path="res://Sprites/HUD/expresion.png" id="7_84f1n"]
+[ext_resource type="Texture2D" uid="uid://bag7dlgooreij" path="res://Sprites/HUD/BAR2.png" id="7_pcsuc"]
+[ext_resource type="Texture2D" uid="uid://dk0crqd4u6jj4" path="res://Sprites/HUD/DefensaCarga.png" id="9_dqduf"]
+[ext_resource type="Texture2D" uid="uid://cjxk6xpm2q0f4" path="res://Sprites/Jugador/ralseiHp.png" id="9_gnjep"]
+[ext_resource type="AudioStream" uid="uid://cocchonie8s3u" path="res://Sonidos/GameOver/Ralsei Dialogue.wav" id="10_dmr3e"]
+[ext_resource type="Texture2D" uid="uid://ey5k8rc1nytf" path="res://Sprites/HUD/DefensaCargaBar.png" id="10_lp2dk"]
+[ext_resource type="Texture2D" uid="uid://dirhahgo5ol65" path="res://Sprites/Jugador/bar.png" id="10_r2uwh"]
+[ext_resource type="Texture2D" uid="uid://cejror3l3msse" path="res://Sprites/Enemigos/TasqueBoss/TasqueLifbar.png" id="14_3r4rg"]
+[ext_resource type="Texture2D" uid="uid://dbnwr6lofi21g" path="res://Mobil/FlechaI.png" id="18_lv5d7"]
+[ext_resource type="Texture2D" uid="uid://d14hhobl7g2t2" path="res://Mobil/FlechaD.png" id="19_33n6t"]
+[ext_resource type="Texture2D" uid="uid://cubyk80njsufd" path="res://Mobil/disparo.png" id="20_puh2h"]
+[ext_resource type="Texture2D" uid="uid://cjy008iu76kuv" path="res://Mobil/dash.png" id="21_qa7jh"]
+[ext_resource type="Texture2D" uid="uid://210haeh8h1he" path="res://Mobil/escudo.png" id="22_aopgj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvaqm"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(0, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebp58"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(57, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg4p4"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(114, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuyw2"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(0, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkdrt"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(57, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fl0r"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(114, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14idp"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(0, 118, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77phx"]
+atlas = ExtResource("7_84f1n")
+region = Rect2(57, 118, 57, 59)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4q8vv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvaqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebp58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg4p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuyw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkdrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fl0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebp58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg4p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuyw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkdrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fl0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebp58")
+}],
+"loop": false,
+"name": &"Angry",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14idp")
+}],
+"loop": true,
+"name": &"Shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77phx")
+}],
+"loop": true,
+"name": &"girado",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_vh4ln"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Texto2:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_w05a7"]
+resource_name = "text"
+length = 0.400002
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Canvas/Texto2:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.400002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2qdxr"]
+_data = {
+&"RESET": SubResource("Animation_vh4ln"),
+&"text": SubResource("Animation_w05a7")
+}
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_bqor6")
+metadata/_edit_vertical_guides_ = [-300.0]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -81.0
+offset_right = 1911.0
+offset_bottom = 897.0
+
+[node name="Arriba" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(539, 616)
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("18_lv5d7")
+passby_press = true
+action = "w"
+visibility_mode = 1
+
+[node name="Izq" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(1405, 615)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("18_lv5d7")
+passby_press = true
+action = "a"
+visibility_mode = 1
+
+[node name="Der" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(1709, 619)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("19_33n6t")
+passby_press = true
+action = "d"
+visibility_mode = 1
+
+[node name="Disparo" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(128, 615)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("20_puh2h")
+passby_press = true
+action = "golpe"
+visibility_mode = 1
+
+[node name="Dash" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(649, 613)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("21_qa7jh")
+passby_press = true
+action = "dash"
+visibility_mode = 1
+
+[node name="Escudo" type="TouchScreenButton" parent="Canvas/Control"]
+position = Vector2(1816, 439)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("22_aopgj")
+passby_press = true
+action = "defensa"
+visibility_mode = 1
+
+[node name="SheetRalsei" type="TextureRect" parent="Canvas"]
+offset_left = -45.0
+offset_top = 718.0
+offset_right = 1655.0
+offset_bottom = 1218.0
+scale = Vector2(0.5, 1)
+texture = ExtResource("1_4ynqc")
+
+[node name="SheetRalseiA" type="TextureRect" parent="Canvas"]
+offset_left = 282.0
+offset_top = 718.0
+offset_right = 1982.0
+offset_bottom = 1218.0
+texture = ExtResource("1_4ynqc")
+
+[node name="BarraDesplazamiento" type="TextureProgressBar" parent="Canvas"]
+offset_left = 533.0
+offset_top = 820.0
+offset_right = 569.0
+offset_bottom = 848.0
+scale = Vector2(3, 3)
+value = 50.0
+fill_mode = 3
+texture_under = ExtResource("3_0ff0a")
+texture_progress = ExtResource("3_wdsyq")
+
+[node name="BarraPoder" type="TextureProgressBar" parent="Canvas"]
+offset_left = 122.0
+offset_top = 192.0
+offset_right = 162.0
+offset_bottom = 388.0
+scale = Vector2(2, 2)
+value = 99.0
+fill_mode = 3
+texture_under = ExtResource("6_x24kx")
+texture_progress = ExtResource("7_pcsuc")
+
+[node name="BarraSalud" type="TextureProgressBar" parent="Canvas"]
+offset_left = 9.0
+offset_top = 820.0
+offset_right = 218.0
+offset_bottom = 854.0
+scale = Vector2(2.5, 2.5)
+max_value = 1.0
+value = 1.0
+texture_under = ExtResource("9_gnjep")
+texture_progress = ExtResource("10_r2uwh")
+texture_progress_offset = Vector2(121, 17)
+
+[node name="BarraEscudo" type="TextureProgressBar" parent="Canvas"]
+anchors_preset = -1
+anchor_top = 0.027
+anchor_bottom = 0.027
+offset_left = 631.0
+offset_top = 813.84
+offset_right = 651.0
+offset_bottom = 833.84
+scale = Vector2(2.3, 2.3)
+max_value = 1.0
+value = 1.0
+texture_under = ExtResource("9_dqduf")
+texture_progress = ExtResource("10_lp2dk")
+
+[node name="Texto1" type="RichTextLabel" parent="Canvas"]
+offset_left = 394.0
+offset_top = 835.0
+offset_right = 528.0
+offset_bottom = 866.0
+theme_override_fonts/normal_font = ExtResource("3_3xqdy")
+theme_override_font_sizes/normal_font_size = 30
+text = "100 / 100"
+metadata/_edit_group_ = true
+
+[node name="Texto2" type="RichTextLabel" parent="Canvas"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -942.0
+offset_top = -146.0
+offset_right = 597.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("4_fqxhr")
+theme_override_font_sizes/normal_font_size = 50
+text = "* Todo bien"
+tab_size = 6
+shortcut_keys_enabled = false
+progress_bar_delay = 1
+visible_characters = 0
+visible_ratio = 0.0
+metadata/_edit_group_ = true
+
+[node name="ControlJefe" type="Control" parent="Canvas"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BossBar" type="TextureProgressBar" parent="Canvas/ControlJefe"]
+layout_mode = 0
+offset_left = 1191.0
+offset_top = 863.0
+offset_right = 1267.0
+offset_bottom = 872.0
+scale = Vector2(5, 3)
+value = 20.0
+texture_progress = ExtResource("14_3r4rg")
+
+[node name="BossLabel" type="RichTextLabel" parent="Canvas/ControlJefe"]
+layout_mode = 0
+offset_left = 1188.0
+offset_top = 803.0
+offset_right = 1586.0
+offset_bottom = 871.0
+theme_override_fonts/normal_font = ExtResource("4_fqxhr")
+theme_override_font_sizes/normal_font_size = 32
+text = "* Tasque Manager"
+
+[node name="VidaBoss" type="RichTextLabel" parent="Canvas/ControlJefe"]
+layout_mode = 0
+offset_left = 1058.0
+offset_top = 863.0
+offset_right = 1192.0
+offset_bottom = 894.0
+theme_override_fonts/normal_font = ExtResource("3_3xqdy")
+theme_override_font_sizes/normal_font_size = 30
+text = "100 / 100"
+metadata/_edit_group_ = true
+
+[node name="expresiones" type="AnimatedSprite2D" parent="Canvas"]
+position = Vector2(1759, 950)
+scale = Vector2(4.5, 4.5)
+sprite_frames = SubResource("SpriteFrames_4q8vv")
+animation = &"girado"
+metadata/_edit_group_ = true
+
+[node name="Animacion" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2qdxr")
+}
+
+[node name="voz" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_dmr3e")
+volume_db = -1.0

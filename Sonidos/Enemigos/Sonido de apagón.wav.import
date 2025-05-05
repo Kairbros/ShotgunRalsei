@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://db2xy5kbkfo4g"
+path="res://.godot/imported/Sonido de apagón.wav-93fb06040b6a80a8c74ab7ca20757026.sample"
+
+[deps]
+
+source_file="res://Sonidos/Enemigos/Sonido de apagón.wav"
+dest_files=["res://.godot/imported/Sonido de apagón.wav-93fb06040b6a80a8c74ab7ca20757026.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

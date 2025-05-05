@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcei0gm6s6afv"]
+
+[ext_resource type="Script" uid="uid://dqylsaiil8mwi" path="res://purotest/Node2D.gd" id="1_4t7c8"]
+[ext_resource type="Texture2D" uid="uid://br07juj6a3phx" path="res://icon.svg" id="2_2atru"]
+
+[node name="Node2D" type="Area2D"]
+script = ExtResource("1_4t7c8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(215, 129)
+texture = ExtResource("2_2atru")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(213, 117)
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

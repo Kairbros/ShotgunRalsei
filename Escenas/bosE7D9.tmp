@@ -1,0 +1,214 @@
+[gd_scene load_steps=25 format=3 uid="uid://beuftcdb0m1m0"]
+
+[ext_resource type="Script" path="res://Scripts/boss.gd" id="1_ttrcf"]
+[ext_resource type="PackedScene" uid="uid://cib1xh2rlt21i" path="res://Escenas/Miscelaneos/Cat.tscn" id="2_6sumk"]
+[ext_resource type="Texture2D" uid="uid://cacr13nu5x8vb" path="res://Sprites/boss/attack.png" id="2_u0n30"]
+[ext_resource type="PackedScene" uid="uid://xgqu8n1nc4un" path="res://Escenas/Miscelaneos/alertaLuz.tscn" id="3_mib87"]
+[ext_resource type="PackedScene" uid="uid://c4el6xd1v2h6k" path="res://Escenas/enemigo.tscn" id="4_yq20m"]
+[ext_resource type="Shader" uid="uid://dwqre0olxfl2g" path="res://Shader/Disolver.tres" id="5_fdn1k"]
+[ext_resource type="Texture2D" uid="uid://c8o034vhosblx" path="res://Sprites/particulas/tasqueP.png" id="5_j5d73"]
+[ext_resource type="Texture2D" uid="uid://ookufle57w6v" path="res://Sprites/Ambientacion/Cuadrado.png" id="6_cgekk"]
+[ext_resource type="Texture2D" uid="uid://p2h4uefrp2a7" path="res://Sprites/Ambientacion/Luz cono.png" id="9_vwbeq"]
+
+[sub_resource type="Gradient" id="Gradient_j3gg2"]
+offsets = PackedFloat32Array(0.209945, 0.486188, 0.751381)
+colors = PackedColorArray(0, 1, 1, 0.34902, 0, 1, 1, 0.117647, 0, 1, 1, 0.0705882)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_al0h4"]
+gradient = SubResource("Gradient_j3gg2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ahvs7"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.5
+scale_max = 2.5
+color_ramp = SubResource("GradientTexture1D_al0h4")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ml82e"]
+blend_mode = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fuybv"]
+shader = ExtResource("5_fdn1k")
+shader_parameter/ModulateShader = Color(0, 0, 0, 1)
+shader_parameter/fade = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onnxf"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(0, 0, 150, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iiaim"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(150, 0, 150, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajqi4"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(300, 0, 150, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb4d8"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(0, 100, 150, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0skae"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(150, 100, 150, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htnfd"]
+atlas = ExtResource("2_u0n30")
+region = Rect2(300, 100, 150, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whfey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iiaim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajqi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb4d8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0skae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htnfd")
+}],
+"loop": false,
+"name": &"atack",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onnxf")
+}],
+"loop": false,
+"name": &"morir",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oql47"]
+size = Vector2(21, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ulwd"]
+size = Vector2(1466.8, 705)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a4c5h"]
+
+[node name="Tasque" type="CharacterBody2D" groups=["enemigo"]]
+scale = Vector2(2.5, 2.5)
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_ttrcf")
+cat = ExtResource("2_6sumk")
+alert = ExtResource("3_mib87")
+car = ExtResource("4_yq20m")
+
+[node name="Particula" type="GPUParticles2D" parent="."]
+light_mask = 512
+position = Vector2(-9.4, -34.4001)
+scale = Vector2(2.5, 2.5)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ahvs7")
+texture = ExtResource("5_j5d73")
+lifetime = 0.4
+
+[node name="Luz" type="PointLight2D" parent="Particula"]
+material = SubResource("CanvasItemMaterial_ml82e")
+position = Vector2(56, 11.14)
+scale = Vector2(0.426667, 0.1668)
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 512
+texture = ExtResource("6_cgekk")
+
+[node name="Textura" type="AnimatedSprite2D" parent="."]
+light_mask = 512
+material = SubResource("ShaderMaterial_fuybv")
+position = Vector2(0.599998, -50)
+sprite_frames = SubResource("SpriteFrames_whfey")
+animation = &"morir"
+frame = 4
+frame_progress = 1.0
+
+[node name="Colision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.4, -34.0002)
+shape = SubResource("RectangleShape2D_oql47")
+
+[node name="Rayo" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(-0.5, -6)
+target_position = Vector2(-0.5, 13.5)
+collision_mask = 25
+
+[node name="AparecerCat" type="Marker2D" parent="."]
+visible = false
+scale = Vector2(0.1, 0.1)
+
+[node name="CatDetector" type="Area2D" parent="."]
+visible = false
+position = Vector2(0.599998, -50)
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatDetector"]
+visible = false
+position = Vector2(-0.8, -300)
+shape = SubResource("RectangleShape2D_8ulwd")
+
+[node name="Indicador" type="Marker2D" parent="."]
+
+[node name="Left" type="RayCast2D" parent="."]
+position = Vector2(-11.8, -15.2002)
+target_position = Vector2(-300, 0)
+collision_mask = 8
+
+[node name="Right" type="RayCast2D" parent="."]
+position = Vector2(8.59999, -15.2002)
+target_position = Vector2(300, 0)
+collision_mask = 8
+
+[node name="CarAparecer" type="Marker2D" parent="."]
+position = Vector2(-1.6, -20.0004)
+
+[node name="Luz" type="PointLight2D" parent="."]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_a4c5h")
+position = Vector2(2.60001, -1001.6)
+scale = Vector2(0.08, 1)
+enabled = false
+color = Color(0, 1, 1, 1)
+range_item_cull_mask = 513
+texture = ExtResource("9_vwbeq")
+
+[node name="Sonido" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="CatDetector" to="." method="_on_cat_detector_body_entered"]
+[connection signal="body_exited" from="CatDetector" to="." method="_on_cat_detector_body_exited"]

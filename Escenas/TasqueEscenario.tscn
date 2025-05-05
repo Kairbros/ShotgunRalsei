@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn1pljfmuuo20"]
+
+[ext_resource type="Script" uid="uid://bd7nubb6mi24y" path="res://Scripts/Escenarios/TasqueEscenario.gd" id="1_ke24i"]
+[ext_resource type="PackedScene" uid="uid://b0iknmgdrs8x" path="res://Escenas/Escenarios/EscenarioTest/escenario.tscn" id="2_86cim"]
+[ext_resource type="PackedScene" uid="uid://c356vkqtwmv0e" path="res://Escenas/Jugador/Jugador.tscn" id="4_gicy5"]
+[ext_resource type="PackedScene" uid="uid://beuftcdb0m1m0" path="res://Escenas/Enemigos/Jefes/Tasque/TasqueStages/TasqueBoss.tscn" id="4_j4vsi"]
+
+[sub_resource type="Environment" id="Environment_7x0lc"]
+background_mode = 3
+ssao_radius = 14.38
+ssao_intensity = 19.45
+glow_enabled = true
+glow_strength = 0.0
+glow_mix = 0.5
+glow_blend_mode = 4
+fog_light_energy = 16.0
+fog_sun_scatter = 10.65
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.3
+adjustment_saturation = 1.4
+
+[node name="TasqueEscenario" type="Node2D"]
+script = ExtResource("1_ke24i")
+
+[node name="Terreno" parent="." instance=ExtResource("2_86cim")]
+offset_left = -659.0
+offset_top = 2177.0
+offset_right = -659.0
+offset_bottom = 2177.0
+
+[node name="Iluminacion" type="DirectionalLight2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="Backgroundmusic" type="AudioStreamPlayer" parent="."]
+
+[node name="Ambientacion" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7x0lc")
+
+[node name="Tasque" parent="." instance=ExtResource("4_j4vsi")]
+position = Vector2(787, 2418)
+
+[node name="Jugador" parent="." instance=ExtResource("4_gicy5")]
+position = Vector2(760, 3653)
