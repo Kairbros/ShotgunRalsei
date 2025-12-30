@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://c356vkqtwmv0e"]
+[gd_scene format=3 uid="uid://c356vkqtwmv0e"]
 
 [ext_resource type="Script" uid="uid://cdue2u76me20u" path="res://Scripts/Jugador/Optimizado/ControladorJugador.gd" id="1_r1o3l"]
 [ext_resource type="PackedScene" uid="uid://0jk8kis3sjs4" path="res://Escenas/Jugador/HUD.tscn" id="2_mgtdy"]
@@ -409,58 +409,114 @@ size = Vector2(30.5002, 60)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eajyf"]
 shader = ExtResource("16_2x3u7")
 
-[node name="Jugador" type="CharacterBody2D" groups=["jugador"]]
+[sub_resource type="Animation" id="Animation_3437w"]
+resource_name = "Morir"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textura:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4lu3v"]
+resource_name = "Parpadeo"
+length = 0.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textura:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0qade"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textura:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j88sr"]
+_data = {
+&"Morir": SubResource("Animation_3437w"),
+&"Parpadeo": SubResource("Animation_4lu3v"),
+&"RESET": SubResource("Animation_0qade")
+}
+
+[node name="Jugador" type="CharacterBody2D" unique_id=547857200 groups=["jugador"]]
 light_mask = 8
 position = Vector2(578, 473)
 collision_mask = 8
 script = ExtResource("1_r1o3l")
+"dañoJugador" = 5
 cargasDesplazamiento = 1
 cargasMaximasDesplazamientos = 1
 tiempoParaDesplazamiento = 0.7
 tiempoParaEscudo = 1.5
 
-[node name="HUD" parent="." instance=ExtResource("2_mgtdy")]
+[node name="HUD" parent="." unique_id=1429697740 instance=ExtResource("2_mgtdy")]
 offset_left = -51.0
 offset_top = -103.0
 offset_right = -11.0
 offset_bottom = -63.0
 
-[node name="Sonido" type="AudioStreamPlayer" parent="."]
+[node name="Sonido" type="AudioStreamPlayer" parent="." unique_id=419263381]
 volume_db = -10.0
 script = ExtResource("6_p7ypc")
 
-[node name="Textura" type="AnimatedSprite2D" parent="."]
+[node name="Textura" type="AnimatedSprite2D" parent="." unique_id=1702207844]
 light_mask = 989
 position = Vector2(-1.00775, 0.833405)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_axna6")
 animation = &"Caminar"
 
-[node name="Escudo" type="Area2D" parent="."]
+[node name="Escudo" type="Area2D" parent="." unique_id=456029066]
 position = Vector2(-4, -16)
 collision_layer = 0
 collision_mask = 34
 
-[node name="Colision" type="CollisionShape2D" parent="Escudo"]
+[node name="Colision" type="CollisionShape2D" parent="Escudo" unique_id=874862967]
 position = Vector2(3, 18.5)
 shape = SubResource("RectangleShape2D_clyob")
 disabled = true
 
-[node name="Colision" type="CollisionShape2D" parent="."]
+[node name="Colision" type="CollisionShape2D" parent="." unique_id=639653943]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_eundi")
 
-[node name="Disparo" type="Marker2D" parent="."]
+[node name="Disparo" type="Marker2D" parent="." unique_id=678833029]
 position = Vector2(45, 3)
 
-[node name="Camara" type="Camera2D" parent="."]
+[node name="Camara" type="Camera2D" parent="." unique_id=562199985]
 position = Vector2(-0.00805664, 0.112396)
 zoom = Vector2(1.3, 1.3)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 
-[node name="PoderLuz" type="PointLight2D" parent="."]
+[node name="PoderLuz" type="PointLight2D" parent="." unique_id=482376641]
 material = SubResource("ShaderMaterial_eajyf")
 position = Vector2(1, 1)
 scale = Vector2(0.1, 0.1)
@@ -468,7 +524,7 @@ enabled = false
 range_item_cull_mask = 512
 texture = ExtResource("16_wjs1i")
 
-[node name="Luz" type="PointLight2D" parent="."]
+[node name="Luz" type="PointLight2D" parent="." unique_id=112612677]
 light_mask = 0
 position = Vector2(-8, 1)
 scale = Vector2(0.433333, 0.4)
@@ -476,6 +532,7 @@ enabled = false
 range_item_cull_mask = 1024
 texture = ExtResource("20_wbrtg")
 
-[node name="Animacion" parent="." instance=ExtResource("16_ohfb1")]
+[node name="Animacion" parent="." unique_id=1601212754 instance=ExtResource("16_ohfb1")]
+libraries/ = SubResource("AnimationLibrary_j88sr")
 
 [connection signal="body_entered" from="Escudo" to="." method="_parry"]

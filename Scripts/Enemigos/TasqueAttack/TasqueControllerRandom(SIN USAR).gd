@@ -303,7 +303,7 @@ func dead(numeroimp):
 		queue_free() #elimina el objeto
 
 @onready var desaparecer  = preload("res://Shader/Disolver.tres")
-@onready var blink  = preload("res://Shader/Blink.tres")
+@onready var blink  = preload("res://Shader/Parpadeo.tres")
 @onready var tasqueR  = preload("res://Sprites/Particulas/tasqueP.png")
 @onready var tasqueL  = preload("res://Sprites/Particulas/tasqueL.png")
 

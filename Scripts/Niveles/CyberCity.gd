@@ -1,11 +1,11 @@
 extends Node
 
-@onready var car = preload("res://Escenas/Enemigos/Terrestres/DogCar.tscn")
+@onready var car = preload("res://Escenas/Enemigos/Terrestres/AnnoyingDog.tscn")
 
 var estaEnPuerta : bool = false
 var direccion : PackedScene
 var plip = preload("res://Sonidos/Menu/Select.wav")
-var tasqueBoss = preload("res://Escenas/juego_test.tscn")
+var tasqueBoss = preload("res://Escenas/Enemigos/Jefes/Tasque/TasqueStages/TasqueBoss.tscn")
 var listaEnemigos : Array
 
 var segundos : float = 5

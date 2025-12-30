@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://beuftcdb0m1m0"]
+[gd_scene format=3 uid="uid://beuftcdb0m1m0"]
 
 [ext_resource type="Script" uid="uid://cgv68y2fdh4xm" path="res://Scripts/Enemigos/TasqueAttack/TasqueController.gd" id="1_pps10"]
 [ext_resource type="Texture2D" uid="uid://dt1gasowmt6om" path="res://Sprites/Enemigos/TasqueBoss/TasqueIndividual.png" id="6_l22ow"]
@@ -246,64 +246,62 @@ size = Vector2(1312.4, 623.2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7vfm"]
 size = Vector2(1464.8, 753.2)
 
-[node name="Tasque" type="CharacterBody2D" groups=["enemigo", "jefe"]]
+[node name="Tasque" type="CharacterBody2D" unique_id=2107725407 groups=["enemigo", "jefe"]]
 position = Vector2(0, 0.999992)
 scale = Vector2(2.5, 2.5)
 collision_layer = 64
 collision_mask = 8
 script = ExtResource("1_pps10")
 
-[node name="Animacion" type="AnimationPlayer" parent="."]
-autoplay = "Default"
-libraries = {
-"": SubResource("AnimationLibrary_kk0aa")
-}
+[node name="Animacion" type="AnimationPlayer" parent="." unique_id=1581904137]
+libraries/ = SubResource("AnimationLibrary_kk0aa")
+autoplay = &"Default"
 
-[node name="AnimNode" type="Node2D" parent="."]
+[node name="AnimNode" type="Node2D" parent="." unique_id=788693440]
 position = Vector2(-11.6, -1.19995)
 
-[node name="Cola" type="AnimatedSprite2D" parent="AnimNode"]
+[node name="Cola" type="AnimatedSprite2D" parent="AnimNode" unique_id=172731395]
 light_mask = 2
 rotation = -0.0523599
 sprite_frames = SubResource("SpriteFrames_bmrqj")
 flip_h = true
 
-[node name="Piernas" type="AnimatedSprite2D" parent="AnimNode"]
+[node name="Piernas" type="AnimatedSprite2D" parent="AnimNode" unique_id=139175484]
 light_mask = 2
 sprite_frames = SubResource("SpriteFrames_htmwd")
 flip_h = true
 
-[node name="Torso" type="AnimatedSprite2D" parent="AnimNode"]
+[node name="Torso" type="AnimatedSprite2D" parent="AnimNode" unique_id=1923830776]
 light_mask = 2
 position = Vector2(0, 19.6)
 rotation = 0.0349066
 sprite_frames = SubResource("SpriteFrames_6h7xe")
 flip_h = true
 
-[node name="Cabeza" type="AnimatedSprite2D" parent="AnimNode"]
+[node name="Cabeza" type="AnimatedSprite2D" parent="AnimNode" unique_id=1767279151]
 light_mask = 2
 position = Vector2(0.4, -1.2)
 rotation = 0.0523599
 sprite_frames = SubResource("SpriteFrames_bv7aa")
 flip_h = true
 
-[node name="ManoSin" type="AnimatedSprite2D" parent="AnimNode"]
+[node name="ManoSin" type="AnimatedSprite2D" parent="AnimNode" unique_id=1077988674]
 light_mask = 2
 rotation = -0.0523599
 sprite_frames = SubResource("SpriteFrames_365la")
 flip_h = true
 
-[node name="Particula" type="GPUParticles2D" parent="."]
+[node name="Particula" type="GPUParticles2D" parent="." unique_id=518757281]
 light_mask = 2048
 position = Vector2(-30.6, -1.20007)
 scale = Vector2(2.5, 2.5)
 emitting = false
 amount = 25
-process_material = SubResource("ParticleProcessMaterial_ahvs7")
 texture = ExtResource("7_863pg")
 lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_ahvs7")
 
-[node name="Luz" type="PointLight2D" parent="Particula"]
+[node name="Luz" type="PointLight2D" parent="Particula" unique_id=1403894598]
 light_mask = 0
 material = SubResource("CanvasItemMaterial_ml82e")
 position = Vector2(30.64, 19.12)
@@ -312,45 +310,45 @@ color = Color(0, 1, 1, 1)
 range_item_cull_mask = 2050
 texture = ExtResource("8_8vsj7")
 
-[node name="Colision" type="CollisionShape2D" parent="."]
+[node name="Colision" type="CollisionShape2D" parent="." unique_id=1217149631]
 position = Vector2(-1.90735e-06, -1)
 shape = SubResource("RectangleShape2D_oql47")
 
-[node name="Rayo" type="RayCast2D" parent="."]
+[node name="Rayo" type="RayCast2D" parent="." unique_id=313631141]
 position = Vector2(-21.2, -15.9999)
 target_position = Vector2(0, 7.6)
 collision_mask = 8
 
-[node name="AparecerCat" type="Marker2D" parent="."]
+[node name="AparecerCat" type="Marker2D" parent="." unique_id=475772776]
 position = Vector2(-21.2, 33.2001)
 scale = Vector2(0.1, 0.1)
 
-[node name="CatDetector" type="Area2D" parent="."]
+[node name="CatDetector" type="Area2D" parent="." unique_id=755873936]
 position = Vector2(-20.6, -16.7999)
 collision_layer = 0
 collision_mask = 17
 
-[node name="Colision" type="CollisionShape2D" parent="CatDetector"]
+[node name="Colision" type="CollisionShape2D" parent="CatDetector" unique_id=1011262197]
 position = Vector2(-0.199997, 0.800003)
 shape = SubResource("RectangleShape2D_8ulwd")
 
-[node name="Indicador" type="Marker2D" parent="."]
+[node name="Indicador" type="Marker2D" parent="." unique_id=1956965963]
 position = Vector2(-21.2, 33.2001)
 
-[node name="Left" type="RayCast2D" parent="."]
+[node name="Left" type="RayCast2D" parent="." unique_id=152393457]
 position = Vector2(-33, 17.9999)
 target_position = Vector2(-300, 0)
 collision_mask = 8
 
-[node name="Right" type="RayCast2D" parent="."]
+[node name="Right" type="RayCast2D" parent="." unique_id=276853678]
 position = Vector2(-12.6, 17.9999)
 target_position = Vector2(300, 0)
 collision_mask = 8
 
-[node name="CarAparecer" type="Marker2D" parent="."]
+[node name="CarAparecer" type="Marker2D" parent="." unique_id=1256329693]
 position = Vector2(-21.2, 16.8)
 
-[node name="Luz" type="PointLight2D" parent="."]
+[node name="Luz" type="PointLight2D" parent="." unique_id=1430455699]
 light_mask = 0
 material = SubResource("CanvasItemMaterial_a4c5h")
 position = Vector2(-17.2, -961.6)
@@ -360,18 +358,18 @@ color = Color(0, 1, 1, 1)
 range_item_cull_mask = 655
 texture = ExtResource("9_44q3f")
 
-[node name="Sonido" type="AudioStreamPlayer" parent="."]
+[node name="Sonido" type="AudioStreamPlayer" parent="." unique_id=2021572843]
 
-[node name="ParedDetector" type="Area2D" parent="."]
+[node name="ParedDetector" type="Area2D" parent="." unique_id=658380874]
 position = Vector2(-21.6, -16.3999)
 collision_layer = 0
 collision_mask = 17
 
-[node name="Colision" type="CollisionShape2D" parent="ParedDetector"]
+[node name="Colision" type="CollisionShape2D" parent="ParedDetector" unique_id=1023616152]
 position = Vector2(0.4, -0.399998)
 shape = SubResource("RectangleShape2D_i7vfm")
 
-[node name="MarcadorPiso" type="Marker2D" parent="."]
+[node name="MarcadorPiso" type="Marker2D" parent="." unique_id=2078514560]
 position = Vector2(0, 33.2)
 
 [connection signal="body_entered" from="CatDetector" to="." method="_detectoEnemigo"]

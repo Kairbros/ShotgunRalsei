@@ -75,7 +75,6 @@ func _physics_process(delta):
 				$AnimNode/Torso.flip_h = true
 				estaGirado = false
 			
-	
 			if randability == 1:
 		
 				moveSetOne(delta)
@@ -209,9 +208,7 @@ func StageChange(delta):
 			velocity.x = 0
 			$Particula.emitting = false
 			aparacerAnnoyingDog()
-			$Sonido.stream = click
-			$Sonido.play()
-			await $Sonido.finished
+			
 			if vida >= vidaTotal * 66 / 100:
 				randability = 1
 			if vida <= vidaTotal * 65 / 100 and vida >= vidaTotal * 35/100:
