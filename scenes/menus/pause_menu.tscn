@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menus/pause_menu.gd" id="1_pause_menu"]
+[ext_resource type="Theme" path="res://assets/themes/hud_theme.tres" id="2_theme"]
+[ext_resource type="FontFile" path="res://assets/fonts/deltarune_title.ttf" id="3_title_font"]
+[ext_resource type="Script" path="res://scripts/menus/soul_menu.gd" id="4_soul_menu"]
+[ext_resource type="PackedScene" path="res://scenes/menus/soul_cursor.tscn" id="5_soul_cursor"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 50
+script = ExtResource("1_pause_menu")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 180.0
+offset_top = 98.0
+offset_right = 460.0
+offset_bottom = 262.0
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 280.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("3_title_font")
+theme_override_font_sizes/font_size = 25
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="SoulMenu" type="Control" parent="Panel" node_paths=PackedStringArray("options")]
+anchors_preset = 0
+offset_left = 47.0
+offset_top = 56.0
+offset_right = 257.0
+offset_bottom = 152.0
+mouse_filter = 2
+script = ExtResource("4_soul_menu")
+options = [NodePath("Resume"), NodePath("Retry"), NodePath("Quit")]
+
+[node name="Resume" type="Label" parent="Panel/SoulMenu"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 24
+text = "Continuar"
+vertical_alignment = 1
+
+[node name="Retry" type="Label" parent="Panel/SoulMenu"]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 210.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 24
+text = "Reintentar"
+vertical_alignment = 1
+
+[node name="Quit" type="Label" parent="Panel/SoulMenu"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 210.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 24
+text = "Salir al menú"
+vertical_alignment = 1
+
+[node name="Soul" parent="Panel/SoulMenu" instance=ExtResource("5_soul_cursor")]

@@ -1,0 +1,56 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/spark_streak.png" id="1_streak"]
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/smoke_wisp.png" id="2_smoke"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_streak"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_smoke"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="ParticleMuzzle" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_streak")
+emitting = false
+amount = 5
+texture = ExtResource("1_streak")
+lifetime = 0.16
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.3
+direction = Vector2(1, 0)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+damping_min = 800.0
+damping_max = 1000.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Smoke" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_smoke")
+emitting = false
+amount = 3
+texture = ExtResource("2_smoke")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.85
+lifetime_randomness = 0.3
+emission_shape = 4
+emission_points = PackedVector2Array(2, 0)
+direction = Vector2(1, -0.2)
+spread = 25.0
+gravity = Vector2(0, -40)
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+damping_min = 40.0
+damping_max = 60.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0

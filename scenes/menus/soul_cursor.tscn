@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menus/soul_cursor.gd" id="1_soul_cursor"]
+[ext_resource type="Texture2D" path="res://assets/sprites/menus/game_over/soul.png" id="2_soul"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
+[ext_resource type="AudioStream" path="res://assets/sounds/menus/menu_move.wav" id="4_move"]
+[ext_resource type="AudioStream" path="res://assets/sounds/menus/menu_select.wav" id="5_select"]
+
+[node name="SoulCursor" type="Sprite2D"]
+material = ExtResource("3_effects")
+texture = ExtResource("2_soul")
+script = ExtResource("1_soul_cursor")
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_move")
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_select")

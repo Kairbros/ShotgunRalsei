@@ -1,0 +1,335 @@
+[gd_scene format=3 uid="uid://b0wpdelb3y1og"]
+
+[ext_resource type="Script" uid="uid://uces52td8ovd" path="res://scripts/entity/bosses/tasque_manager/tasque_manager.gd" id="1_boss"]
+[ext_resource type="Script" uid="uid://dvuv8nh24cvpb" path="res://scripts/entity/bosses/tasque_manager/tasque_phase.gd" id="2_phase"]
+[ext_resource type="Texture2D" uid="uid://cnn0b15nai16c" path="res://assets/sprites/enemies/tasque_manager/tasque_parts.png" id="3_parts"]
+[ext_resource type="Texture2D" uid="uid://c4187fod5iw4w" path="res://assets/sprites/enemies/tasque_manager/tasque_whip.png" id="4_whip"]
+[ext_resource type="Texture2D" uid="uid://37007trnjcik" path="res://assets/sprites/enemies/tasque_manager/tasque_body.png" id="5_body"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="6_effects"]
+[ext_resource type="PackedScene" uid="uid://cu7ugv5r06ef0" path="res://scenes/entity/bosses/tasque_manager/minions/falling_cat.tscn" id="8_falling_cat"]
+[ext_resource type="PackedScene" path="res://scenes/entity/bosses/tasque_manager/minions/shooter_cat.tscn" id="9_shooter_cat"]
+[ext_resource type="PackedScene" path="res://scenes/entity/bosses/tasque_manager/tasque_dog.tscn" id="10_dog"]
+[ext_resource type="Script" uid="uid://c7tym85183pde" path="res://scripts/entity/hitbox.gd" id="11_hitbox"]
+[ext_resource type="Script" uid="uid://dkq0u5esfy1by" path="res://scripts/entity/hurtbox.gd" id="12_hurtbox"]
+[ext_resource type="Script" uid="uid://c3o8iu1qc74on" path="res://scripts/common/multi_sound_2d.gd" id="13_multi_sound"]
+[ext_resource type="Script" uid="uid://c4w0k7u03m2ir" path="res://scripts/common/multi_particle_2d.gd" id="14_multi_particle"]
+[ext_resource type="AudioStream" uid="uid://77nj2d50nuhv" path="res://assets/sounds/enemies/hit.wav" id="15_hit"]
+[ext_resource type="AudioStream" uid="uid://buuw1fr7mk0xh" path="res://assets/sounds/enemies/tasque_manager/tasque_laugh.wav" id="16_laugh"]
+[ext_resource type="AudioStream" uid="uid://cubdjsshoym1a" path="res://assets/sounds/enemies/tasque_manager/spotlight_click.wav" id="17_click"]
+[ext_resource type="AudioStream" uid="uid://dby0jfcwk1co4" path="res://assets/sounds/enemies/tasque_manager/tasque_voice_a.wav" id="18_voice_a"]
+[ext_resource type="AudioStream" uid="uid://bfrrg2tk87dt6" path="res://assets/sounds/enemies/tasque_manager/tasque_voice_b.wav" id="19_voice_b"]
+[ext_resource type="AudioStream" uid="uid://c6ltflulpi6vc" path="res://assets/sounds/enemies/tasque_manager/tasque_voice_c.wav" id="20_voice_c"]
+[ext_resource type="AudioStream" uid="uid://bta0my8xj8br8" path="res://assets/sounds/enemies/tasque_manager/tasque_voice_d.wav" id="21_voice_d"]
+[ext_resource type="AudioStream" uid="uid://dicg5n1cf7c8h" path="res://assets/sounds/enemies/tasque_manager/tasque_spare.wav" id="22_spare"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_dash.tscn" id="23_particle_dash"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_land.tscn" id="24_particle_land"]
+[ext_resource type="PackedScene" path="res://scenes/state_machine/state_machine.tscn" id="25_machine"]
+[ext_resource type="Script" uid="uid://ifddrr3dcahs" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_dormant.gd" id="26_dormant"]
+[ext_resource type="Script" uid="uid://bobytmuikmx1h" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_intro.gd" id="27_intro"]
+[ext_resource type="Script" uid="uid://bqqvajpvhn0yx" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_attack.gd" id="28_attack"]
+[ext_resource type="Script" uid="uid://dahub0ltco2lx" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_dash_wind_up.gd" id="29_dash_wind_up"]
+[ext_resource type="Script" uid="uid://rgxvnqfxpwi" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_dash.gd" id="30_dash"]
+[ext_resource type="Script" uid="uid://dfbcg8dp8vxwb" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_defeated.gd" id="31_defeated"]
+
+[sub_resource type="Resource" id="Resource_phase_falling"]
+script = ExtResource("2_phase")
+attacks = Array[PackedScene]([ExtResource("8_falling_cat")])
+interval_start = 1.35
+interval_end = 0.95
+opening_delay = 1.0
+voice = &"TasqueVoiceA"
+
+[sub_resource type="Resource" id="Resource_phase_shooters"]
+script = ExtResource("2_phase")
+starts_at = 0.65
+attacks = Array[PackedScene]([ExtResource("9_shooter_cat")])
+interval_start = 1.6
+interval_end = 1.15
+opening_delay = 1.4
+voice = &"TasqueVoiceB"
+
+[sub_resource type="Resource" id="Resource_phase_mixed"]
+script = ExtResource("2_phase")
+starts_at = 0.34
+attacks = Array[PackedScene]([ExtResource("8_falling_cat"), ExtResource("9_shooter_cat")])
+interval_start = 1.05
+interval_end = 0.7
+opening_delay = 1.4
+voice = &"TasqueVoiceC"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_body"]
+atlas = ExtResource("5_body")
+region = Rect2(0, 0, 48, 69)
+margin = Rect2(0, 1, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dress"]
+atlas = ExtResource("3_parts")
+region = Rect2(0, 0, 24, 39)
+margin = Rect2(18, 31, 24, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tasque"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_body")
+}],
+"loop": 1,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dress")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_0"]
+atlas = ExtResource("4_whip")
+region = Rect2(0, 0, 67, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_1"]
+atlas = ExtResource("4_whip")
+region = Rect2(67, 0, 67, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_2"]
+atlas = ExtResource("4_whip")
+region = Rect2(134, 0, 67, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_3"]
+atlas = ExtResource("4_whip")
+region = Rect2(201, 0, 67, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_4"]
+atlas = ExtResource("4_whip")
+region = Rect2(268, 0, 67, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whip_5"]
+atlas = ExtResource("4_whip")
+region = Rect2(335, 0, 67, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whip_5")
+}],
+"loop": 0,
+"name": &"swing",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/AnimatedSprite/Parts/Head:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-17, -69), Vector2(-17, -70)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics/AnimatedSprite/Parts/Hand:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(10, -50), Vector2(10, -51)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/AnimatedSprite/Parts/Tail:position")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-29, -55), Vector2(-30, -55)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_parts"]
+_data = {
+&"idle": SubResource("Animation_idle")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collider"]
+size = Vector2(20, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(22, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(34, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
+size = Vector2(720, 200)
+
+[node name="TasqueManager" type="CharacterBody2D" unique_id=1694754658]
+collision_layer = 256
+collision_mask = 16
+script = ExtResource("1_boss")
+phases = Array[ExtResource("2_phase")]([SubResource("Resource_phase_falling"), SubResource("Resource_phase_shooters"), SubResource("Resource_phase_mixed")])
+dog_scene = ExtResource("10_dog")
+max_health = 250
+damage_amount = 15
+knockback_potency = 300.0
+
+[node name="Graphics" type="Node2D" parent="." unique_id=275552045]
+visible = false
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics" unique_id=237849535]
+material = ExtResource("6_effects")
+sprite_frames = SubResource("SpriteFrames_tasque")
+animation = &"idle"
+offset = Vector2(-6, -35)
+
+[node name="Parts" type="Node2D" parent="Graphics/AnimatedSprite" unique_id=1878990566]
+use_parent_material = true
+
+[node name="Torso" type="Sprite2D" parent="Graphics/AnimatedSprite/Parts" unique_id=143789509]
+use_parent_material = true
+position = Vector2(-12, -49)
+texture = ExtResource("3_parts")
+centered = false
+region_enabled = true
+region_rect = Rect2(25, 0, 17, 13)
+
+[node name="Head" type="Sprite2D" parent="Graphics/AnimatedSprite/Parts" unique_id=983234532]
+use_parent_material = true
+position = Vector2(-17, -70)
+texture = ExtResource("3_parts")
+centered = false
+region_enabled = true
+region_rect = Rect2(43, 0, 28, 23)
+
+[node name="Tail" type="Sprite2D" parent="Graphics/AnimatedSprite/Parts" unique_id=1285398419]
+use_parent_material = true
+position = Vector2(-30, -55)
+texture = ExtResource("3_parts")
+centered = false
+region_enabled = true
+region_rect = Rect2(72, 0, 22, 30)
+
+[node name="Hand" type="Sprite2D" parent="Graphics/AnimatedSprite/Parts" unique_id=1004209927]
+use_parent_material = true
+position = Vector2(10, -51)
+texture = ExtResource("3_parts")
+centered = false
+region_enabled = true
+region_rect = Rect2(95, 0, 8, 10)
+
+[node name="Whip" type="AnimatedSprite2D" parent="Graphics/AnimatedSprite/Parts" unique_id=494995924]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_whip")
+animation = &"idle"
+centered = false
+offset = Vector2(-30, -78)
+
+[node name="PartsAnimator" type="AnimationPlayer" parent="." unique_id=1934697424]
+libraries/ = SubResource("AnimationLibrary_parts")
+autoplay = &"idle"
+
+[node name="Minions" type="Node2D" parent="." unique_id=1455069024]
+top_level = true
+
+[node name="MultiParticle2D" type="Node2D" parent="." unique_id=1852470996]
+script = ExtResource("14_multi_particle")
+quantity_of_emitters = 2
+particle_scenes = Array[PackedScene]([ExtResource("23_particle_dash"), ExtResource("24_particle_land")])
+
+[node name="MultiSound2D" type="Node2D" parent="." unique_id=1616159443]
+script = ExtResource("13_multi_sound")
+quantity_of_reproducers = 1
+audio_streams = Array[AudioStream]([ExtResource("15_hit"), ExtResource("16_laugh"), ExtResource("17_click"), ExtResource("18_voice_a"), ExtResource("19_voice_b"), ExtResource("20_voice_c"), ExtResource("21_voice_d"), ExtResource("22_spare")])
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=178811582]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_collider")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=811888475]
+position = Vector2(0, -27)
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("11_hitbox")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="Hitbox" unique_id=1383580771]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+debug_color = Color(0.98232573, 0, 0.3673817, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1061508557]
+position = Vector2(0, -32)
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("12_hurtbox")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox" unique_id=864493089]
+shape = SubResource("RectangleShape2D_hurtbox")
+disabled = true
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=279204379]
+position = Vector2(0, -60)
+collision_layer = 0
+monitorable = false
+
+[node name="Collider" type="CollisionShape2D" parent="PlayerDetector" unique_id=139453076]
+shape = SubResource("RectangleShape2D_detector")
+debug_color = Color(1, 0.85, 0, 0.41960785)
+
+[node name="StateMachine" parent="." unique_id=100564896 node_paths=PackedStringArray("default_state") instance=ExtResource("25_machine")]
+default_state = NodePath("Dormant")
+
+[node name="Dormant" type="Node" parent="StateMachine" unique_id=1680495435]
+script = ExtResource("26_dormant")
+
+[node name="Intro" type="Node" parent="StateMachine" unique_id=2069135163]
+script = ExtResource("27_intro")
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=2004989373]
+script = ExtResource("28_attack")
+
+[node name="DashWindUp" type="Node" parent="StateMachine" unique_id=1558737268]
+script = ExtResource("29_dash_wind_up")
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=803013630]
+script = ExtResource("30_dash")
+
+[node name="Defeated" type="Node" parent="StateMachine" unique_id=1993142850]
+script = ExtResource("31_defeated")

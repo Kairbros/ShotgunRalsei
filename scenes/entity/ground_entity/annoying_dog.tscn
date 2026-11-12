@@ -1,0 +1,205 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/ground_entity.gd" id="1_entity"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/annoying_dog/annoying_dog_drive.png" id="2_drive"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
+[ext_resource type="Script" path="res://scripts/entity/hitbox.gd" id="4_hitbox"]
+[ext_resource type="Script" path="res://scripts/entity/hurtbox.gd" id="5_hurtbox"]
+[ext_resource type="PackedScene" path="res://scenes/state_machine/state_machine.tscn" id="6_machine"]
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/states/ground_entity_state_idle.gd" id="7_idle"]
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/states/ground_entity_state_chase.gd" id="8_chase"]
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/states/ground_entity_state_hurt.gd" id="9_hurt"]
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/states/ground_entity_state_stunned.gd" id="10_stunned"]
+[ext_resource type="Script" path="res://scripts/entity/ground_entity/states/ground_entity_state_dead.gd" id="11_dead"]
+[ext_resource type="AudioStream" path="res://assets/sounds/enemies/hit.wav" id="13_hit"]
+[ext_resource type="Script" path="res://scripts/common/multi_sound_2d.gd" id="14_multi_sound"]
+[ext_resource type="Script" path="res://scripts/common/multi_particle_2d.gd" id="15_multi_particle"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_poof.tscn" id="16_particle_poof"]
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/dust_puff_small.png" id="17_dust"]
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/smoke_wisp.png" id="18_smoke"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drive_1"]
+atlas = ExtResource("2_drive")
+region = Rect2(0, 0, 40, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drive_2"]
+atlas = ExtResource("2_drive")
+region = Rect2(40, 0, 40, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_annoying_dog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drive_2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drive_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drive_2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dust"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_exhaust"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+offsets = PackedFloat32Array(0, 0.75, 1)
+colors = PackedColorArray(0.85, 0.78, 0.66, 1, 0.85, 0.78, 0.66, 1, 0.85, 0.78, 0.66, 0)
+
+[sub_resource type="Gradient" id="Gradient_exhaust"]
+offsets = PackedFloat32Array(0, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0.9, 1, 1, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collider"]
+size = Vector2(30, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(36, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(36, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detector"]
+size = Vector2(576, 224)
+
+[node name="AnnoyingDog" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 8208
+script = ExtResource("1_entity")
+max_health = 6
+damage_amount = 30
+knockback_potency = 360.0
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics"]
+material = ExtResource("3_effects")
+sprite_frames = SubResource("SpriteFrames_annoying_dog")
+animation = &"idle"
+offset = Vector2(0, -21)
+
+[node name="EdgeDetector" type="RayCast2D" parent="Graphics"]
+position = Vector2(18, -4)
+target_position = Vector2(0, 12)
+collision_mask = 8208
+
+[node name="Particles" type="Node2D" parent="Graphics"]
+
+[node name="Dust" type="CPUParticles2D" parent="Graphics/Particles"]
+position = Vector2(-13, -3)
+material = SubResource("CanvasItemMaterial_dust")
+emitting = false
+amount = 4
+texture = ExtResource("17_dust")
+lifetime = 0.35
+direction = Vector2(-1, -0.6)
+spread = 25.0
+gravity = Vector2(0, -30)
+initial_velocity_min = 15.0
+initial_velocity_max = 35.0
+damping_min = 40.0
+damping_max = 60.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+color_ramp = SubResource("Gradient_dust")
+
+[node name="Exhaust" type="CPUParticles2D" parent="Graphics/Particles"]
+position = Vector2(-20, -6)
+material = SubResource("CanvasItemMaterial_exhaust")
+amount = 3
+texture = ExtResource("18_smoke")
+lifetime = 0.8
+direction = Vector2(-1, -0.3)
+spread = 15.0
+gravity = Vector2(0, -25)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+color_ramp = SubResource("Gradient_exhaust")
+
+[node name="MultiParticle2D" type="Node2D" parent="."]
+script = ExtResource("15_multi_particle")
+quantity_of_emitters = 1
+particle_scenes = Array[PackedScene]([ExtResource("16_particle_poof")])
+
+[node name="MultiSound2D" type="Node2D" parent="."]
+script = ExtResource("14_multi_sound")
+audio_streams = Array[AudioStream]([ExtResource("13_hit")])
+pitch_variation = 0.1
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_collider")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -12)
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("4_hitbox")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+debug_color = Color(0.98232573, 0, 0.3673817, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -20)
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_hurtbox")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurtbox")
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, -72)
+collision_layer = 0
+monitorable = false
+
+[node name="Collider" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("RectangleShape2D_detector")
+debug_color = Color(1, 0.85, 0, 0.41960785)
+
+[node name="SightRay" type="RayCast2D" parent="."]
+position = Vector2(0, -16)
+target_position = Vector2(0, 0)
+collision_mask = 16
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("6_machine")]
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_idle")
+
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("8_chase")
+
+[node name="Hurt" type="Node" parent="StateMachine"]
+script = ExtResource("9_hurt")
+
+[node name="Stunned" type="Node" parent="StateMachine"]
+script = ExtResource("10_stunned")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("11_dead")

@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://cu7ugv5r06ef0"]
+
+[ext_resource type="Script" uid="uid://dslxtrcecurn2" path="res://scripts/entity/bosses/tasque_manager/minions/falling_cat.gd" id="1_cat"]
+[ext_resource type="Texture2D" uid="uid://10i7yx7f1kef" path="res://assets/sprites/enemies/tasque_manager/tasque_cat.png" id="2_cat"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
+[ext_resource type="Texture2D" uid="uid://c57jalt2onq8m" path="res://assets/sprites/enemies/tasque_manager/warning_marker.png" id="4_marker"]
+[ext_resource type="Script" uid="uid://c7tym85183pde" path="res://scripts/entity/hitbox.gd" id="6_hitbox"]
+[ext_resource type="Script" uid="uid://dkq0u5esfy1by" path="res://scripts/entity/hurtbox.gd" id="7_hurtbox"]
+[ext_resource type="Script" uid="uid://c3o8iu1qc74on" path="res://scripts/common/multi_sound_2d.gd" id="8_multi_sound"]
+[ext_resource type="Script" uid="uid://c4w0k7u03m2ir" path="res://scripts/common/multi_particle_2d.gd" id="9_multi_particle"]
+[ext_resource type="AudioStream" uid="uid://77nj2d50nuhv" path="res://assets/sounds/enemies/hit.wav" id="10_hit"]
+[ext_resource type="AudioStream" uid="uid://dk5it3nprsfud" path="res://assets/sounds/player/land.wav" id="11_land"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_land.tscn" id="12_particle_land"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_poof.tscn" id="13_particle_poof"]
+[ext_resource type="PackedScene" path="res://scenes/state_machine/state_machine.tscn" id="14_machine"]
+[ext_resource type="Script" uid="uid://css2eby1tt75u" path="res://scripts/entity/bosses/tasque_manager/minions/states/falling_cat_state_warn.gd" id="15_warn"]
+[ext_resource type="Script" uid="uid://bg0ux1g53pa4g" path="res://scripts/entity/bosses/tasque_manager/minions/states/falling_cat_state_fall.gd" id="16_fall"]
+[ext_resource type="Script" uid="uid://d02u0u6euw83s" path="res://scripts/entity/bosses/tasque_manager/minions/states/falling_cat_state_land.gd" id="17_land"]
+[ext_resource type="Script" uid="uid://cuoxkjnrqicc3" path="res://scripts/entity/minions/states/minion_state_stunned.gd" id="18_stunned"]
+[ext_resource type="Script" uid="uid://dwjm3y2d8a0wf" path="res://scripts/entity/minions/states/minion_state_vanish.gd" id="19_vanish"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_0"]
+atlas = ExtResource("2_cat")
+region = Rect2(0, 0, 72, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_0")
+}],
+"loop": 1,
+"name": &"fall",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_marker"]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_marker_bright"]
+atlas = ExtResource("4_marker")
+region = Rect2(0, 0, 33, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_marker_dim"]
+atlas = ExtResource("4_marker")
+region = Rect2(33, 0, 33, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_marker"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_marker_bright")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_marker_dim")
+}],
+"loop": 1,
+"name": &"blink",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collider"]
+size = Vector2(24, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(30, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(34, 30)
+
+[node name="FallingCat" type="CharacterBody2D" unique_id=1337514099]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_cat")
+max_health = 2
+damage_amount = 20
+knockback_potency = 220.0
+
+[node name="Graphics" type="Node2D" parent="." unique_id=280866352]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics" unique_id=683763975]
+material = ExtResource("3_effects")
+sprite_frames = SubResource("SpriteFrames_cat")
+animation = &"fall"
+offset = Vector2(-17, -20)
+flip_h = true
+
+[node name="Warning" type="Node2D" parent="." unique_id=1772746982]
+top_level = true
+z_index = 1
+
+[node name="Marker" type="AnimatedSprite2D" parent="Warning" unique_id=887622183]
+visible = false
+material = SubResource("CanvasItemMaterial_marker")
+sprite_frames = SubResource("SpriteFrames_marker")
+animation = &"blink"
+autoplay = "blink"
+centered = false
+offset = Vector2(-16, -1)
+
+[node name="MultiParticle2D" type="Node2D" parent="." unique_id=854200400]
+script = ExtResource("9_multi_particle")
+quantity_of_emitters = 1
+particle_scenes = Array[PackedScene]([ExtResource("12_particle_land"), ExtResource("13_particle_poof")])
+
+[node name="MultiSound2D" type="Node2D" parent="." unique_id=113544925]
+script = ExtResource("8_multi_sound")
+quantity_of_reproducers = 1
+audio_streams = Array[AudioStream]([ExtResource("10_hit"), ExtResource("11_land")])
+pitch_variation = 0.1
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=1530414043]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_collider")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2021701349]
+position = Vector2(0, -13)
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("6_hitbox")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="Hitbox" unique_id=317794952]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+debug_color = Color(0.98232573, 0, 0.3673817, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1303582164]
+position = Vector2(0, -17)
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_hurtbox")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox" unique_id=265850646]
+shape = SubResource("RectangleShape2D_hurtbox")
+disabled = true
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="StateMachine" parent="." unique_id=491991453 node_paths=PackedStringArray("default_state") instance=ExtResource("14_machine")]
+default_state = NodePath("Warn")
+
+[node name="Warn" type="Node" parent="StateMachine" unique_id=1680288714]
+script = ExtResource("15_warn")
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1286714924]
+script = ExtResource("16_fall")
+
+[node name="Land" type="Node" parent="StateMachine" unique_id=788034198]
+script = ExtResource("17_land")
+
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=1379508644]
+script = ExtResource("18_stunned")
+
+[node name="Leave" type="Node" parent="StateMachine" unique_id=184303166]
+script = ExtResource("19_vanish")
+drift = Vector2(0, -8)
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=150712924]
+script = ExtResource("19_vanish")
+particle_name = &"ParticlePoof"

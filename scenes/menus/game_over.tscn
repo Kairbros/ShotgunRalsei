@@ -1,0 +1,274 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menus/game_over.gd" id="1_game_over"]
+[ext_resource type="Theme" path="res://assets/themes/hud_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/sprites/menus/game_over/heart_shatter.png" id="3_heart_shatter"]
+[ext_resource type="FontFile" path="res://assets/fonts/deltarune_title.ttf" id="4_title_font"]
+[ext_resource type="Script" path="res://scripts/menus/soul_selector.gd" id="5_soul_selector"]
+[ext_resource type="PackedScene" path="res://scenes/menus/soul_cursor.tscn" id="6_soul_cursor"]
+[ext_resource type="Script" path="res://scripts/menus/dialogue_box.gd" id="8_dialogue_box"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hud/ralsei_expressions.png" id="9_expressions"]
+[ext_resource type="AudioStream" path="res://assets/sounds/hud/ralsei_voice.wav" id="10_voice"]
+[ext_resource type="AudioStream" path="res://assets/sounds/menus/heart_shatter.wav" id="11_shatter_sound"]
+[ext_resource type="AudioStream" path="res://assets/sounds/menus/game_over_music.wav" id="12_music"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter0"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(0, 0, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter1"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(448, 0, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter2"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(896, 0, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter3"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1344, 0, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter4"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1792, 0, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter5"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(0, 248, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter6"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(448, 248, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter7"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(896, 248, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter8"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1344, 248, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter9"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1792, 248, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter10"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(0, 496, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter11"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(448, 496, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter12"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(896, 496, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter13"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1344, 496, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter14"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1792, 496, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter15"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(0, 744, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter16"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(448, 744, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter17"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(896, 744, 448, 248)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shatter18"]
+atlas = ExtResource("3_heart_shatter")
+region = Rect2(1344, 744, 448, 248)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_heart"]
+animations = [{
+"frames": [{
+"duration": 13.0,
+"texture": SubResource("AtlasTexture_shatter0")
+},
+{
+"duration": 26.0,
+"texture": SubResource("AtlasTexture_shatter1")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter2")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter3")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter4")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter5")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter6")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter7")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter8")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter9")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter10")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter11")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter12")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter13")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter14")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter15")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter16")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter17")
+},
+{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shatter18")
+}],
+"loop": false,
+"name": &"shatter",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_portrait"]
+atlas = ExtResource("9_expressions")
+region = Rect2(57, 118, 57, 59)
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_game_over")
+
+[node name="Screen" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Background" type="ColorRect" parent="Screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Heart" type="AnimatedSprite2D" parent="Screen"]
+position = Vector2(320, 189)
+sprite_frames = SubResource("SpriteFrames_heart")
+animation = &"shatter"
+
+[node name="Title" type="Label" parent="Screen"]
+offset_top = 40.0
+offset_right = 640.0
+offset_bottom = 115.0
+theme_override_fonts/font = ExtResource("4_title_font")
+theme_override_font_sizes/font_size = 75
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="SoulSelector" type="Control" parent="Screen"]
+offset_left = 64.0
+offset_top = 172.0
+offset_right = 576.0
+offset_bottom = 209.0
+mouse_filter = 2
+script = ExtResource("5_soul_selector")
+
+[node name="Continue" type="Label" parent="Screen/SoulSelector"]
+offset_right = 186.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 24
+text = "Continuar"
+horizontal_alignment = 2
+
+[node name="Quit" type="Label" parent="Screen/SoulSelector"]
+offset_left = 326.0
+offset_right = 512.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 24
+text = "Salir"
+
+[node name="Soul" parent="Screen/SoulSelector" instance=ExtResource("6_soul_cursor")]
+position = Vector2(256, 17)
+
+[node name="DialogueBox" type="Panel" parent="Screen"]
+offset_left = 20.0
+offset_top = 268.0
+offset_right = 620.0
+offset_bottom = 344.0
+mouse_filter = 2
+script = ExtResource("8_dialogue_box")
+
+[node name="Portrait" type="TextureRect" parent="Screen/DialogueBox"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 66.0
+offset_bottom = 68.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_portrait")
+
+[node name="Text" type="Label" parent="Screen/DialogueBox"]
+offset_left = 76.0
+offset_top = 6.0
+offset_right = 592.0
+offset_bottom = 70.0
+theme_override_constants/line_spacing = -11
+theme_override_font_sizes/font_size = 24
+
+[node name="Voice" type="AudioStreamPlayer" parent="Screen/DialogueBox"]
+stream = ExtResource("10_voice")
+volume_db = -12.0
+
+[node name="LineTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="ShatterSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_shatter_sound")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_music")
+volume_db = -40.0

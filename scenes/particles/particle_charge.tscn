@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/sparkle.png" id="1_sparkle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/particles/power_streak.png" id="2_streak"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sparkle"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_palette"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.34, 0.67)
+colors = PackedColorArray(1, 0.84705883, 0, 1, 1, 1, 1, 1, 1, 0.8117647, 0.42745098, 1)
+
+[sub_resource type="Gradient" id="Gradient_fade"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="ParticleCharge" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_sparkle")
+emitting = false
+amount = 14
+texture = ExtResource("1_sparkle")
+lifetime = 0.4
+one_shot = true
+emission_shape = 2
+emission_sphere_radius = 26.0
+gravity = Vector2(0, 0)
+radial_accel_min = -320.0
+radial_accel_max = -320.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+color_initial_ramp = SubResource("Gradient_palette")
+
+[node name="Streaks" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 10)
+emitting = false
+amount = 10
+texture = ExtResource("2_streak")
+lifetime = 0.45
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(11, 8)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 45.0
+initial_velocity_max = 75.0
+color_ramp = SubResource("Gradient_fade")

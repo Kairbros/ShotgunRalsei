@@ -1,0 +1,410 @@
+[gd_scene format=3 uid="uid://dtmcl0q0mdhc6"]
+
+[ext_resource type="Script" uid="uid://btdxc383ivgjm" path="res://scripts/hud/hud.gd" id="1_hud"]
+[ext_resource type="Shader" uid="uid://cyo5l2o2mqw1o" path="res://assets/shaders/sprite_effects.gdshader" id="2_effects_shader"]
+[ext_resource type="Texture2D" uid="uid://36gb111m1c4l" path="res://assets/sprites/hud/ralsei_expressions.png" id="3_expressions"]
+[ext_resource type="Texture2D" uid="uid://dsa2sqqxd15ki" path="res://assets/sprites/hud/ralsei_hp.png" id="4_ralsei_hp"]
+[ext_resource type="Texture2D" uid="uid://c31bjelrtxwtd" path="res://assets/sprites/hud/dash_indicator.png" id="5_dash"]
+[ext_resource type="Texture2D" uid="uid://6wrnkytgd067" path="res://assets/sprites/hud/dash_indicator_empty.png" id="6_dash_empty"]
+[ext_resource type="Texture2D" uid="uid://ckvygmxxtixfr" path="res://assets/sprites/hud/shield_indicator.png" id="7_shield"]
+[ext_resource type="Texture2D" uid="uid://dvieg18da035m" path="res://assets/sprites/hud/shield_indicator_empty.png" id="8_shield_empty"]
+[ext_resource type="Theme" uid="uid://davwohmvkv8ij" path="res://assets/themes/hud_theme.tres" id="9_theme"]
+[ext_resource type="AudioStream" uid="uid://c2xpd30krnf2b" path="res://assets/sounds/hud/ralsei_voice.wav" id="10_voice"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="11_effects"]
+[ext_resource type="Script" uid="uid://cg6xli2ss5pe4" path="res://scripts/hud/ralsei_portrait.gd" id="12_portrait"]
+[ext_resource type="Script" uid="uid://c7vye4yjbromj" path="res://scripts/hud/health_gauge.gd" id="13_health_gauge"]
+[ext_resource type="Script" uid="uid://nfywu18wrlgm" path="res://scripts/hud/hud_bar.gd" id="14_hud_bar"]
+[ext_resource type="Script" uid="uid://du2uxpjuudiy5" path="res://scripts/hud/power_gauge.gd" id="15_power_gauge"]
+[ext_resource type="Script" uid="uid://btyt7nenynuxx" path="res://scripts/hud/dash_pips.gd" id="16_dash_pips"]
+[ext_resource type="Script" uid="uid://n4124wib6ltu" path="res://scripts/hud/shield_indicator.gd" id="17_shield_indicator"]
+[ext_resource type="Script" uid="uid://c72r8ac8ftp1o" path="res://scripts/hud/cooldown_icon.gd" id="18_cooldown_icon"]
+[ext_resource type="Script" uid="uid://cspfxudfj3a4f" path="res://scripts/hud/speech_box.gd" id="19_speech_box"]
+[ext_resource type="Script" uid="uid://bhymp5bjq1ik7" path="res://scripts/hud/boss_bar.gd" id="20_boss_bar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face1"]
+atlas = ExtResource("3_expressions")
+region = Rect2(57, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face0"]
+atlas = ExtResource("3_expressions")
+region = Rect2(0, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face2"]
+atlas = ExtResource("3_expressions")
+region = Rect2(114, 0, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face3"]
+atlas = ExtResource("3_expressions")
+region = Rect2(0, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face4"]
+atlas = ExtResource("3_expressions")
+region = Rect2(57, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face5"]
+atlas = ExtResource("3_expressions")
+region = Rect2(114, 59, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face7"]
+atlas = ExtResource("3_expressions")
+region = Rect2(57, 118, 57, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_face6"]
+atlas = ExtResource("3_expressions")
+region = Rect2(0, 118, 57, 59)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_portrait"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face1")
+}],
+"loop": 1,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face1")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face7")
+}],
+"loop": 1,
+"name": &"neutral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_face6")
+}],
+"loop": 1,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_name"]
+atlas = ExtResource("4_ralsei_hp")
+region = Rect2(49, 11, 153, 17)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_HealthBar"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_PowerBar"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_PowerAmount"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash"]
+atlas = ExtResource("5_dash")
+region = Rect2(10, 5, 17, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dash_empty"]
+atlas = ExtResource("6_dash_empty")
+region = Rect2(10, 5, 17, 19)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ShieldBuff"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ShieldIcon"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_BossBar"]
+shader = ExtResource("2_effects_shader")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+shader_parameter/blinking = false
+shader_parameter/blink_speed = 25.0
+shader_parameter/dissolve_amount = 0.0
+
+[node name="Hud" type="CanvasLayer" unique_id=163581828]
+script = ExtResource("1_hud")
+
+[node name="Screen" type="Control" parent="." unique_id=315483354]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("9_theme")
+
+[node name="PlayerPanel" type="Panel" parent="Screen" unique_id=941137599]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 232.0
+offset_bottom = 71.0
+mouse_filter = 2
+
+[node name="Portrait" type="Control" parent="Screen/PlayerPanel" unique_id=943844846]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 59.0
+offset_bottom = 61.0
+mouse_filter = 2
+script = ExtResource("12_portrait")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Screen/PlayerPanel/Portrait" unique_id=1491505233]
+sprite_frames = SubResource("SpriteFrames_portrait")
+animation = &"neutral"
+centered = false
+
+[node name="Divider" type="ColorRect" parent="Screen/PlayerPanel" unique_id=269574281]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 2.0
+offset_right = 61.0
+offset_bottom = 61.0
+mouse_filter = 2
+
+[node name="NameStrip" type="TextureRect" parent="Screen/PlayerPanel" unique_id=751611223]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 6.0
+offset_right = 218.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_name")
+
+[node name="HealthGauge" type="Control" parent="Screen/PlayerPanel" unique_id=135779152]
+anchors_preset = 0
+offset_left = 142.0
+offset_top = 3.0
+offset_right = 218.0
+offset_bottom = 23.0
+mouse_filter = 2
+script = ExtResource("13_health_gauge")
+
+[node name="Counter" type="Label" parent="Screen/PlayerPanel/HealthGauge" unique_id=22610144]
+layout_mode = 0
+offset_right = 76.0
+offset_bottom = 13.0
+text = "100 / 100"
+horizontal_alignment = 2
+
+[node name="Bar" type="Control" parent="Screen/PlayerPanel/HealthGauge" unique_id=690391113]
+material = SubResource("ShaderMaterial_HealthBar")
+anchors_preset = 0
+offset_top = 11.0
+offset_right = 76.0
+offset_bottom = 20.0
+mouse_filter = 2
+script = ExtResource("14_hud_bar")
+fill_color = Color(0.709804, 0.901961, 0.113725, 1)
+back_color = Color(0.501961, 0, 0, 1)
+pulse_color = Color(1, 0, 0, 1)
+
+[node name="PowerGauge" type="Control" parent="Screen/PlayerPanel" unique_id=164297030]
+anchors_preset = 0
+offset_left = 65.0
+offset_top = 25.0
+offset_right = 218.0
+offset_bottom = 38.0
+mouse_filter = 2
+script = ExtResource("15_power_gauge")
+charging_color = Color(1, 0.498039, 0.152941, 1)
+full_color = Color(1, 1, 0, 1)
+
+[node name="Title" type="Label" parent="Screen/PlayerPanel/PowerGauge" unique_id=1441614006]
+self_modulate = Color(1, 0.498039, 0.152941, 1)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 13.0
+text = "TP"
+
+[node name="Bar" type="Control" parent="Screen/PlayerPanel/PowerGauge" unique_id=561525466]
+material = SubResource("ShaderMaterial_PowerBar")
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 124.0
+offset_bottom = 9.0
+mouse_filter = 2
+script = ExtResource("14_hud_bar")
+fill_color = Color(1, 0.498039, 0.152941, 1)
+back_color = Color(0.501961, 0, 0, 1)
+
+[node name="Amount" type="Label" parent="Screen/PlayerPanel/PowerGauge" unique_id=374832327]
+material = SubResource("ShaderMaterial_PowerAmount")
+layout_mode = 0
+offset_left = 129.0
+offset_right = 153.0
+offset_bottom = 13.0
+text = "0%"
+horizontal_alignment = 2
+
+[node name="DashPips" type="HBoxContainer" parent="Screen/PlayerPanel" unique_id=132959173]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 39.0
+offset_right = 124.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+script = ExtResource("16_dash_pips")
+full_texture = SubResource("AtlasTexture_dash")
+empty_texture = SubResource("AtlasTexture_dash_empty")
+pip_material = ExtResource("11_effects")
+
+[node name="ShieldIndicator" type="Control" parent="Screen/PlayerPanel" unique_id=2010864132]
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 38.0
+offset_right = 218.0
+offset_bottom = 58.0
+mouse_filter = 2
+script = ExtResource("17_shield_indicator")
+
+[node name="Buff" type="Label" parent="Screen/PlayerPanel/ShieldIndicator" unique_id=2026035233]
+material = SubResource("ShaderMaterial_ShieldBuff")
+layout_mode = 0
+offset_top = 4.0
+offset_right = 24.0
+offset_bottom = 17.0
+text = "x5"
+horizontal_alignment = 2
+
+[node name="Icon" type="TextureProgressBar" parent="Screen/PlayerPanel/ShieldIndicator" unique_id=1045555862]
+material = SubResource("ShaderMaterial_ShieldIcon")
+layout_mode = 0
+offset_left = 28.0
+offset_right = 48.0
+offset_bottom = 20.0
+texture_under = ExtResource("8_shield_empty")
+texture_progress = ExtResource("7_shield")
+script = ExtResource("18_cooldown_icon")
+
+[node name="SpeechBox" type="Panel" parent="Screen" unique_id=206826100]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 74.0
+offset_right = 128.0
+offset_bottom = 94.0
+mouse_filter = 2
+script = ExtResource("19_speech_box")
+
+[node name="Text" type="Label" parent="Screen/SpeechBox" unique_id=1001365798]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 112.0
+offset_bottom = 17.0
+
+[node name="Voice" type="AudioStreamPlayer" parent="Screen/SpeechBox" unique_id=192402952]
+stream = ExtResource("10_voice")
+volume_db = -12.0
+
+[node name="BossBar" type="Panel" parent="Screen" unique_id=1948830831]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -37.0
+offset_right = 152.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("20_boss_bar")
+
+[node name="Name" type="Label" parent="Screen/BossBar" unique_id=1045057420]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 206.0
+offset_bottom = 17.0
+
+[node name="Gauge" type="Control" parent="Screen/BossBar" unique_id=1733167744]
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 298.0
+offset_bottom = 24.0
+mouse_filter = 2
+script = ExtResource("13_health_gauge")
+warning_ratio = 0.0
+
+[node name="Counter" type="Label" parent="Screen/BossBar/Gauge" unique_id=436488517]
+layout_mode = 0
+offset_left = 192.0
+offset_right = 292.0
+offset_bottom = 13.0
+horizontal_alignment = 2
+
+[node name="Bar" type="Control" parent="Screen/BossBar/Gauge" unique_id=531776369]
+material = SubResource("ShaderMaterial_BossBar")
+anchors_preset = 0
+offset_top = 12.0
+offset_right = 292.0
+offset_bottom = 20.0
+mouse_filter = 2
+script = ExtResource("14_hud_bar")
+fill_color = Color(1, 1, 0, 1)
+back_color = Color(0.501961, 0, 0, 1)

@@ -1,0 +1,243 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/shooter_cat.gd" id="1_cat"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/tasque_manager/tasque_cat.png" id="2_cat"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
+[ext_resource type="PackedScene" path="res://scenes/entity/bosses/tasque_manager/minions/cat_projectile.tscn" id="4_projectile"]
+[ext_resource type="Script" path="res://scripts/entity/hitbox.gd" id="6_hitbox"]
+[ext_resource type="Script" path="res://scripts/entity/hurtbox.gd" id="7_hurtbox"]
+[ext_resource type="Script" path="res://scripts/common/multi_sound_2d.gd" id="8_multi_sound"]
+[ext_resource type="Script" path="res://scripts/common/multi_particle_2d.gd" id="9_multi_particle"]
+[ext_resource type="AudioStream" path="res://assets/sounds/enemies/hit.wav" id="10_hit"]
+[ext_resource type="AudioStream" path="res://assets/sounds/enemies/tasque_manager/cat_meow.wav" id="11_meow"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_poof.tscn" id="13_particle_poof"]
+[ext_resource type="PackedScene" path="res://scenes/state_machine/state_machine.tscn" id="14_machine"]
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/shooter_cat_state_emerge.gd" id="15_emerge"]
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/shooter_cat_state_wind_up.gd" id="16_wind_up"]
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/shooter_cat_state_shoot.gd" id="17_shoot"]
+[ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_stunned.gd" id="18_stunned"]
+[ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_vanish.gd" id="19_vanish"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_0"]
+atlas = ExtResource("2_cat")
+region = Rect2(0, 0, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_1"]
+atlas = ExtResource("2_cat")
+region = Rect2(72, 0, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_2"]
+atlas = ExtResource("2_cat")
+region = Rect2(144, 0, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_3"]
+atlas = ExtResource("2_cat")
+region = Rect2(216, 0, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_4"]
+atlas = ExtResource("2_cat")
+region = Rect2(0, 40, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_5"]
+atlas = ExtResource("2_cat")
+region = Rect2(72, 40, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_6"]
+atlas = ExtResource("2_cat")
+region = Rect2(144, 40, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_7"]
+atlas = ExtResource("2_cat")
+region = Rect2(216, 40, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_8"]
+atlas = ExtResource("2_cat")
+region = Rect2(0, 80, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_9"]
+atlas = ExtResource("2_cat")
+region = Rect2(72, 80, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_10"]
+atlas = ExtResource("2_cat")
+region = Rect2(144, 80, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_11"]
+atlas = ExtResource("2_cat")
+region = Rect2(216, 80, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_12"]
+atlas = ExtResource("2_cat")
+region = Rect2(0, 120, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_13"]
+atlas = ExtResource("2_cat")
+region = Rect2(72, 120, 72, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cat_14"]
+atlas = ExtResource("2_cat")
+region = Rect2(144, 120, 72, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_4")
+}],
+"loop": false,
+"name": &"wind_up",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cat_14")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(26, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(34, 30)
+
+[node name="ShooterCat" type="CharacterBody2D"]
+z_index = -2
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_cat")
+projectile_scene = ExtResource("4_projectile")
+body_center = Vector2(0, -16)
+max_health = 2
+damage_amount = 15
+knockback_potency = 200.0
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics"]
+material = ExtResource("3_effects")
+sprite_frames = SubResource("SpriteFrames_cat")
+animation = &"idle"
+offset = Vector2(-17, -20)
+flip_h = true
+
+[node name="Muzzle" type="Marker2D" parent="Graphics"]
+position = Vector2(6, -22)
+
+[node name="MultiParticle2D" type="Node2D" parent="."]
+script = ExtResource("9_multi_particle")
+quantity_of_emitters = 1
+particle_scenes = Array[PackedScene]([ExtResource("13_particle_poof")])
+
+[node name="MultiSound2D" type="Node2D" parent="."]
+script = ExtResource("8_multi_sound")
+quantity_of_reproducers = 1
+audio_streams = Array[AudioStream]([ExtResource("10_hit"), ExtResource("11_meow")])
+pitch_variation = 0.1
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -12)
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("6_hitbox")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+debug_color = Color(0.98232573, 0, 0.3673817, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -17)
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_hurtbox")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurtbox")
+disabled = true
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("14_machine")]
+default_state = NodePath("Emerge")
+
+[node name="Emerge" type="Node" parent="StateMachine"]
+script = ExtResource("15_emerge")
+
+[node name="WindUp" type="Node" parent="StateMachine"]
+script = ExtResource("16_wind_up")
+
+[node name="Shoot" type="Node" parent="StateMachine"]
+script = ExtResource("17_shoot")
+
+[node name="Stunned" type="Node" parent="StateMachine"]
+script = ExtResource("18_stunned")
+
+[node name="Leave" type="Node" parent="StateMachine"]
+script = ExtResource("19_vanish")
+drift = Vector2(0, 40)
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("19_vanish")
+particle_name = &"ParticlePoof"

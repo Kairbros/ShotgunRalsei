@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/entity/ground_entity/annoying_dog.tscn" id="1_dog"]
+
+[node name="TasqueDog" instance=ExtResource("1_dog")]
+max_health = 6
+damage_amount = 15
+min_speed = 150.0
+max_speed = 175.0
+
+[node name="AnimatedSprite" parent="Graphics" index="0"]
+self_modulate = Color(0.7, 0.92, 1.15, 1)
+

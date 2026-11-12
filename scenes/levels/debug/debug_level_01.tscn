@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://c6cysbtt3p57j"]
+
+[ext_resource type="PackedScene" uid="uid://wxthu8i7b3bd" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/entity/ground_entity/annoying_dog.tscn" id="2_annoying_dog"]
+[ext_resource type="PackedScene" path="res://scenes/hud/hud.tscn" id="3_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Floor"]
+size = Vector2(1600, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_PlatformLow"]
+size = Vector2(96, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_PlatformMid"]
+size = Vector2(96, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_PlatformHigh"]
+size = Vector2(96, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_WallLeft"]
+size = Vector2(20, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_WallRight"]
+size = Vector2(20, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Step"]
+size = Vector2(200, 40)
+
+[node name="DebugLevel01" type="Node2D" unique_id=1671451165]
+
+[node name="Terrain" type="StaticBody2D" parent="." unique_id=643188725]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape2D" parent="Terrain" unique_id=108869522]
+position = Vector2(400, 320)
+shape = SubResource("RectangleShape2D_Floor")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/Floor" unique_id=1997676968]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-800, -20, 800, -20, 800, 20, -800, 20)
+
+[node name="PlatformLow" type="CollisionShape2D" parent="Terrain" unique_id=67074403]
+position = Vector2(224, 250)
+shape = SubResource("RectangleShape2D_PlatformLow")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/PlatformLow" unique_id=1619522083]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-48, -6, 48, -6, 48, 6, -48, 6)
+
+[node name="PlatformMid" type="CollisionShape2D" parent="Terrain" unique_id=304994133]
+position = Vector2(420, 200)
+shape = SubResource("RectangleShape2D_PlatformMid")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/PlatformMid" unique_id=1167926196]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-48, -6, 48, -6, 48, 6, -48, 6)
+
+[node name="PlatformHigh" type="CollisionShape2D" parent="Terrain" unique_id=656373451]
+position = Vector2(600, 150)
+shape = SubResource("RectangleShape2D_PlatformHigh")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/PlatformHigh" unique_id=1602638978]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-48, -6, 48, -6, 48, 6, -48, 6)
+
+[node name="WallLeft" type="CollisionShape2D" parent="Terrain" unique_id=832126969]
+position = Vector2(-390, 160)
+shape = SubResource("RectangleShape2D_WallLeft")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/WallLeft" unique_id=2104803401]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-10, -180, 10, -180, 10, 180, -10, 180)
+
+[node name="WallRight" type="CollisionShape2D" parent="Terrain" unique_id=2089487264]
+position = Vector2(1190, 160)
+shape = SubResource("RectangleShape2D_WallRight")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/WallRight" unique_id=914808570]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-10, -180, 10, -180, 10, 180, -10, 180)
+
+[node name="Step" type="CollisionShape2D" parent="Terrain" unique_id=168930742]
+position = Vector2(900, 280)
+shape = SubResource("RectangleShape2D_Step")
+
+[node name="Polygon" type="Polygon2D" parent="Terrain/Step" unique_id=3334519]
+color = Color(0.16, 0.2, 0.32, 1)
+polygon = PackedVector2Array(-100, -20, 100, -20, 100, 20, -100, 20)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2107171399]
+
+[node name="AnnoyingDog" parent="Enemies" unique_id=169557293 instance=ExtResource("2_annoying_dog")]
+position = Vector2(680, 300)
+
+[node name="AnnoyingDog2" parent="Enemies" unique_id=418060724 instance=ExtResource("2_annoying_dog")]
+position = Vector2(960, 260)
+
+[node name="Player" parent="." unique_id=1166501818 instance=ExtResource("1_player")]
+position = Vector2(100, 300)
+damage_amount = 10
+
+[node name="Hud" parent="." unique_id=675929550 node_paths=PackedStringArray("player") instance=ExtResource("3_hud")]
+player = NodePath("../Player")

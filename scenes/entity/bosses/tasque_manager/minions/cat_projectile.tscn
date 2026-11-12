@@ -1,0 +1,104 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/cat_projectile.gd" id="1_projectile"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/tasque_manager/cat_wave.png" id="2_wave"]
+[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
+[ext_resource type="Script" path="res://scripts/entity/hitbox.gd" id="6_hitbox"]
+[ext_resource type="Script" path="res://scripts/entity/hurtbox.gd" id="7_hurtbox"]
+[ext_resource type="Script" path="res://scripts/common/multi_sound_2d.gd" id="8_multi_sound"]
+[ext_resource type="Script" path="res://scripts/common/multi_particle_2d.gd" id="9_multi_particle"]
+[ext_resource type="AudioStream" path="res://assets/sounds/enemies/hit.wav" id="10_hit"]
+[ext_resource type="PackedScene" path="res://scenes/particles/particle_hit.tscn" id="12_particle_hit"]
+[ext_resource type="PackedScene" path="res://scenes/state_machine/state_machine.tscn" id="14_machine"]
+[ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/cat_projectile_state_fly.gd" id="15_fly"]
+[ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_vanish.gd" id="19_vanish"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wave"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wave")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_collider"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hitbox"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
+radius = 8.0
+
+[node name="CatProjectile" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 0
+collision_mask = 16
+motion_mode = 1
+script = ExtResource("1_projectile")
+body_center = Vector2(0, 0)
+max_health = 1
+damage_amount = 15
+knockback_potency = 200.0
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics"]
+material = ExtResource("3_effects")
+sprite_frames = SubResource("SpriteFrames_wave")
+animation = &"fly"
+offset = Vector2(-2, 0)
+
+[node name="Echo" type="Sprite2D" parent="Graphics/AnimatedSprite"]
+modulate = Color(1, 1, 1, 0.45)
+show_behind_parent = true
+use_parent_material = true
+texture = ExtResource("2_wave")
+offset = Vector2(-9, 0)
+
+[node name="MultiParticle2D" type="Node2D" parent="."]
+script = ExtResource("9_multi_particle")
+quantity_of_emitters = 1
+particle_scenes = Array[PackedScene]([ExtResource("12_particle_hit")])
+
+[node name="MultiSound2D" type="Node2D" parent="."]
+script = ExtResource("8_multi_sound")
+quantity_of_reproducers = 1
+audio_streams = Array[AudioStream]([ExtResource("10_hit")])
+pitch_variation = 0.1
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_collider")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 4
+script = ExtResource("6_hitbox")
+
+[node name="HitboxCollider" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_hitbox")
+disabled = true
+debug_color = Color(0.98232573, 0, 0.3673817, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_hurtbox")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_hurtbox")
+debug_color = Color(0, 1, 0, 0.41960785)
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("14_machine")]
+default_state = NodePath("Fly")
+
+[node name="Fly" type="Node" parent="StateMachine"]
+script = ExtResource("15_fly")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("19_vanish")
+particle_name = &"ParticleHit"

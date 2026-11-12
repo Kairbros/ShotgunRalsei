@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menus/level_select.gd" id="1_level_select"]
+[ext_resource type="Theme" path="res://assets/themes/hud_theme.tres" id="2_theme"]
+[ext_resource type="FontFile" path="res://assets/fonts/deltarune_title.ttf" id="3_title_font"]
+[ext_resource type="Script" path="res://scripts/menus/soul_menu.gd" id="4_soul_menu"]
+[ext_resource type="PackedScene" path="res://scenes/menus/soul_cursor.tscn" id="5_soul_cursor"]
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_level_select")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 640.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("3_title_font")
+theme_override_font_sizes/font_size = 25
+text = "SELECCIONA UN NIVEL"
+horizontal_alignment = 1
+
+[node name="SoulMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 92.0
+offset_right = 640.0
+offset_bottom = 262.0
+mouse_filter = 2
+script = ExtResource("4_soul_menu")
+horizontal = true
+
+[node name="Cards" type="Control" parent="SoulMenu"]
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 170.0
+mouse_filter = 2
+
+[node name="Soul" parent="SoulMenu" instance=ExtResource("5_soul_cursor")]
+
+[node name="Hint" type="Label" parent="."]
+modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 0
+offset_top = 300.0
+offset_right = 640.0
+offset_bottom = 316.0
+text = "Z: Elegir · X: Volver"
+horizontal_alignment = 1
