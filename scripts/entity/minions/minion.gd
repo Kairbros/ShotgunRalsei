@@ -8,6 +8,10 @@ class MinionState:
 
 @export var body_center: Vector2 = Vector2(0, -16)
 
+@export_group("Prediction")
+@export var lead_strength: float = 0.7
+@export var max_lead_distance: float = 110.0
+
 var target: Player = null
 
 func spawn(_summoner_position: Vector2, new_target: Player, _floor_span: Vector2) -> void:
@@ -30,7 +34,12 @@ func dismiss() -> void:
 
 func is_active() -> bool:
 	var current_state: StateBase = state_machine.current_state
-	return is_alive() and !(current_state is MinionStateVanish)
+	return is_alive() and !(current_state is MinionStateShatter)
+
+func predict_target_x(lead_time: float) -> float:
+	var lead: float = clampf(
+		target.velocity.x * lead_time * lead_strength, -max_lead_distance, max_lead_distance)
+	return target.global_position.x + lead
 
 func face_target() -> void:
 	if target:

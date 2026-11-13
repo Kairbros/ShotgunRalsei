@@ -10,7 +10,9 @@ class State:
 func launch(from: Vector2, new_target: Player) -> void:
 	target = new_target
 	global_position = from
-	var direction: Vector2 = from.direction_to(target.global_position + Player.BODY_CENTER)
+	var aim: Vector2 = target.global_position + Player.BODY_CENTER
+	aim.x = predict_target_x(from.distance_to(aim) / speed)
+	var direction: Vector2 = from.direction_to(aim)
 	velocity = direction * speed
 	graphics.rotation = direction.angle()
 	state_timer = lifetime

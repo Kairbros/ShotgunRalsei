@@ -16,7 +16,7 @@ func _ready() -> void:
 	soul_menu.open(get_first_available_index())
 
 func _unhandled_input(event: InputEvent) -> void:
-	if soul_menu.interactive and event.is_action_pressed(InputNames.Menu.BACK):
+	if soul_menu.can_interact() and event.is_action_pressed(InputNames.Menu.BACK):
 		get_viewport().set_input_as_handled()
 		soul_menu.close()
 		GameManager.open_main_menu()

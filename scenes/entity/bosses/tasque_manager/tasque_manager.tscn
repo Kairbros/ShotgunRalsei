@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cnn0b15nai16c" path="res://assets/sprites/enemies/tasque_manager/tasque_parts.png" id="3_parts"]
 [ext_resource type="Texture2D" uid="uid://c4187fod5iw4w" path="res://assets/sprites/enemies/tasque_manager/tasque_whip.png" id="4_whip"]
 [ext_resource type="Texture2D" uid="uid://37007trnjcik" path="res://assets/sprites/enemies/tasque_manager/tasque_body.png" id="5_body"]
-[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="6_effects"]
+[ext_resource type="Material" uid="uid://ct4dxcek6yxxc" path="res://assets/shaders/materials/sprite_effects.tres" id="6_effects"]
 [ext_resource type="PackedScene" uid="uid://cu7ugv5r06ef0" path="res://scenes/entity/bosses/tasque_manager/minions/falling_cat.tscn" id="8_falling_cat"]
 [ext_resource type="PackedScene" path="res://scenes/entity/bosses/tasque_manager/minions/shooter_cat.tscn" id="9_shooter_cat"]
 [ext_resource type="PackedScene" path="res://scenes/entity/bosses/tasque_manager/tasque_dog.tscn" id="10_dog"]
@@ -30,32 +30,15 @@
 [ext_resource type="Script" uid="uid://dahub0ltco2lx" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_dash_wind_up.gd" id="29_dash_wind_up"]
 [ext_resource type="Script" uid="uid://rgxvnqfxpwi" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_dash.gd" id="30_dash"]
 [ext_resource type="Script" uid="uid://dfbcg8dp8vxwb" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_defeated.gd" id="31_defeated"]
+[ext_resource type="Script" uid="uid://c3srik341phrc" path="res://scripts/entity/bosses/tasque_manager/states/tasque_state_reposition.gd" id="32_reposition"]
 
-[sub_resource type="Resource" id="Resource_phase_falling"]
+[sub_resource type="Resource" id="Resource_phase_main"]
 script = ExtResource("2_phase")
-attacks = Array[PackedScene]([ExtResource("8_falling_cat")])
-interval_start = 1.35
-interval_end = 0.95
+attacks = Array[PackedScene]([ExtResource("8_falling_cat"), ExtResource("9_shooter_cat")])
+interval_start = 1.5
+interval_end = 0.6
 opening_delay = 1.0
 voice = &"TasqueVoiceA"
-
-[sub_resource type="Resource" id="Resource_phase_shooters"]
-script = ExtResource("2_phase")
-starts_at = 0.65
-attacks = Array[PackedScene]([ExtResource("9_shooter_cat")])
-interval_start = 1.6
-interval_end = 1.15
-opening_delay = 1.4
-voice = &"TasqueVoiceB"
-
-[sub_resource type="Resource" id="Resource_phase_mixed"]
-script = ExtResource("2_phase")
-starts_at = 0.34
-attacks = Array[PackedScene]([ExtResource("8_falling_cat"), ExtResource("9_shooter_cat")])
-interval_start = 1.05
-interval_end = 0.7
-opening_delay = 1.4
-voice = &"TasqueVoiceC"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_body"]
 atlas = ExtResource("5_body")
@@ -90,26 +73,6 @@ animations = [{
 atlas = ExtResource("4_whip")
 region = Rect2(0, 0, 67, 70)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_whip_1"]
-atlas = ExtResource("4_whip")
-region = Rect2(67, 0, 67, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whip_2"]
-atlas = ExtResource("4_whip")
-region = Rect2(134, 0, 67, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whip_3"]
-atlas = ExtResource("4_whip")
-region = Rect2(201, 0, 67, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whip_4"]
-atlas = ExtResource("4_whip")
-region = Rect2(268, 0, 67, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whip_5"]
-atlas = ExtResource("4_whip")
-region = Rect2(335, 0, 67, 70)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_whip"]
 animations = [{
 "frames": [{
@@ -119,26 +82,6 @@ animations = [{
 "loop": 1,
 "name": &"idle",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whip_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whip_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whip_3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whip_4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whip_5")
-}],
-"loop": 0,
-"name": &"swing",
-"speed": 15.0
 }]
 
 [sub_resource type="Animation" id="Animation_idle"]
@@ -203,7 +146,7 @@ size = Vector2(720, 200)
 collision_layer = 256
 collision_mask = 16
 script = ExtResource("1_boss")
-phases = Array[ExtResource("2_phase")]([SubResource("Resource_phase_falling"), SubResource("Resource_phase_shooters"), SubResource("Resource_phase_mixed")])
+phases = Array[ExtResource("2_phase")]([SubResource("Resource_phase_main")])
 dog_scene = ExtResource("10_dog")
 max_health = 250
 damage_amount = 15
@@ -324,6 +267,9 @@ script = ExtResource("27_intro")
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=2004989373]
 script = ExtResource("28_attack")
+
+[node name="Reposition" type="Node" parent="StateMachine" unique_id=1860117464]
+script = ExtResource("32_reposition")
 
 [node name="DashWindUp" type="Node" parent="StateMachine" unique_id=1558737268]
 script = ExtResource("29_dash_wind_up")

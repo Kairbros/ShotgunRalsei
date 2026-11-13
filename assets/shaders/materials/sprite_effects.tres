@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ct4dxcek6yxxc"]
 
-[ext_resource type="Shader" path="res://assets/shaders/sprite_effects.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://cyo5l2o2mqw1o" path="res://assets/shaders/sprite_effects.gdshader" id="1_shader"]
 
 [resource]
 resource_local_to_scene = true
@@ -9,4 +9,3 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0

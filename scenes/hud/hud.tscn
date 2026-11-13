@@ -131,7 +131,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_PowerBar"]
 shader = ExtResource("2_effects_shader")
@@ -139,7 +138,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_PowerAmount"]
 shader = ExtResource("2_effects_shader")
@@ -147,7 +145,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dash"]
 atlas = ExtResource("5_dash")
@@ -163,7 +160,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ShieldIcon"]
 shader = ExtResource("2_effects_shader")
@@ -171,7 +167,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_BossBar"]
 shader = ExtResource("2_effects_shader")
@@ -179,7 +174,6 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 shader_parameter/blinking = false
 shader_parameter/blink_speed = 25.0
-shader_parameter/dissolve_amount = 0.0
 
 [node name="Hud" type="CanvasLayer" unique_id=163581828]
 script = ExtResource("1_hud")

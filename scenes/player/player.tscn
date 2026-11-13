@@ -474,14 +474,14 @@ collision_mask = 8208
 platform_on_leave = 1
 platform_wall_layers = 16
 script = ExtResource("1_player")
-damage_amount = 5
+damage_amount = 2
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1669226636]
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="Graphics" unique_id=1739244659]
 material = ExtResource("46_effects")
 sprite_frames = SubResource("SpriteFrames_ralsei")
-animation = &"idle"
+animation = &"shoot"
 offset = Vector2(0, -20)
 
 [node name="Muzzle" type="Marker2D" parent="Graphics" unique_id=1305459122]
@@ -577,9 +577,12 @@ script = ExtResource("47_power_meter")
 
 [node name="DashCharges" type="Node" parent="." unique_id=621987856]
 script = ExtResource("48_dash_charges")
+max_charges = 1
+recharge_duration = 1.5
 
 [node name="ShieldCooldown" type="Node" parent="." unique_id=1220250066]
 script = ExtResource("49_countdown")
+duration = 3.0
 
 [node name="HurtInvulnerability" type="Node" parent="." unique_id=1045102068]
 script = ExtResource("49_countdown")

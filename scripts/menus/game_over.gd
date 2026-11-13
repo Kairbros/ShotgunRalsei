@@ -6,7 +6,6 @@ const LINES: Array[String] = [
 	"* Vamos...\n  inténtalo una vez más",
 	"* Levántate...",
 ]
-const SHARD_FRAME: int = 2
 const TITLE_FADE_DURATION: float = 1.2
 const MUSIC_FADE_IN_DURATION: float = 2.5
 const MUSIC_VOLUME_DB: float = -6.0
@@ -42,33 +41,31 @@ func _unhandled_input(event: InputEvent) -> void:
 		intro_tween.custom_step(INTRO_SKIP_STEP)
 
 func play_intro() -> void:
-	var shard_time: float = get_shatter_time(SHARD_FRAME)
-	var shatter_time: float = get_shatter_time(heart.sprite_frames.get_frame_count(Anim.SHATTER))
-
 	heart.play(Anim.SHATTER)
 	shatter_sound.play()
 
 	intro_tween = create_tween()
-	intro_tween.tween_interval(shard_time)
-	intro_tween.tween_property(
-		heart, HudFx.Property.MODULATE, HudPalette.FADED, shatter_time - shard_time).set_trans(
-			Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	intro_tween.tween_interval(get_crack_duration())
+	intro_tween.tween_callback(break_heart)
+	intro_tween.tween_interval(SpriteShatter.MAX_LIFETIME)
 	intro_tween.tween_callback(end_shatter)
 	intro_tween.tween_property(title, HudFx.Property.MODULATE, HudPalette.WHITE, TITLE_FADE_DURATION)
 	intro_tween.tween_callback(start_interaction)
 
-func get_shatter_time(frame_count: int) -> float:
+func get_crack_duration() -> float:
 	var frames: SpriteFrames = heart.sprite_frames
 	var relative_time: float = 0.0
 
-	for frame: int in frame_count:
+	for frame: int in frames.get_frame_count(Anim.SHATTER):
 		relative_time += frames.get_frame_duration(Anim.SHATTER, frame)
 
 	return relative_time / frames.get_animation_speed(Anim.SHATTER)
 
-func end_shatter() -> void:
-	heart.stop()
+func break_heart() -> void:
+	SpriteShatter.spawn(heart, heart)
 	heart.hide()
+
+func end_shatter() -> void:
 	shatter_sound.stop()
 	fade_music(SILENT_VOLUME_DB, MUSIC_VOLUME_DB, MUSIC_FADE_IN_DURATION)
 	music.play()

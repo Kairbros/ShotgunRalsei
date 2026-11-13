@@ -4,12 +4,10 @@ const PIXEL_SNAP: float = 1.0 / 8.0
 const SQUASH_SCALE: Vector2 = Vector2(9.0 / 8.0, 7.0 / 8.0)
 const SQUASH_DURATION: float = 1.0 / 8.0
 const FLASH_DURATION: float = 0.2
-const DISSOLVE_DURATION: float = 0.6
 
 class ShaderParam:
 	const FLASH_AMOUNT: NodePath = ^"material:shader_parameter/flash_amount"
 	const BLINKING: NodePath = ^"material:shader_parameter/blinking"
-	const DISSOLVE_AMOUNT: NodePath = ^"material:shader_parameter/dissolve_amount"
 
 class Meta:
 	const SQUASH_TWEEN: StringName = &"vfx_squash_tween"
@@ -54,12 +52,6 @@ static func stop_blink(target_node: CanvasItem) -> void:
 
 static func set_blinking(target_node: CanvasItem, enabled: bool) -> void:
 	target_node.set_indexed(ShaderParam.BLINKING, enabled)
-
-static func dissolve(target_node: CanvasItem) -> Tween:
-	var dissolve_tween: Tween = target_node.create_tween()
-	dissolve_tween.tween_property(
-		target_node, ShaderParam.DISSOLVE_AMOUNT, 1.0, DISSOLVE_DURATION).from(0.0)
-	return dissolve_tween
 
 static func replace_tween(target_node: CanvasItem, key: StringName) -> Tween:
 	kill_tween(target_node, key)

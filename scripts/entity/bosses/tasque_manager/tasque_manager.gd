@@ -15,6 +15,7 @@ class State:
 	const DORMANT: StringName = &"Dormant"
 	const INTRO: StringName = &"Intro"
 	const ATTACK: StringName = &"Attack"
+	const REPOSITION: StringName = &"Reposition"
 	const DASH_WIND_UP: StringName = &"DashWindUp"
 	const DASH: StringName = &"Dash"
 	const DEFEATED: StringName = &"Defeated"
@@ -22,7 +23,6 @@ class State:
 class Anim:
 	const IDLE: StringName = &"idle"
 	const DASH: StringName = &"dash"
-	const SWING: StringName = &"swing"
 
 class Voice:
 	const LAUGH: StringName = &"TasqueLaugh"
@@ -44,6 +44,14 @@ class Property:
 @export var blackout_duration: float = 1.6
 @export var laugh_duration: float = 1.4
 @export var reveal_duration: float = 1.0
+
+@export_group("Reposition")
+@export var reposition_interval: Vector2 = Vector2(4.0, 7.0)
+@export var reposition_speed: float = 120.0
+@export var reposition_min_distance: float = 120.0
+@export var reposition_player_clearance: float = 90.0
+@export var reposition_edge_margin: float = 80.0
+@export var reposition_attempts: int = 8
 
 @export_group("Dash")
 @export var dash_damage_threshold: int = 40
@@ -68,13 +76,8 @@ var damage_since_dash: int = 0
 var attack_bag: Array[PackedScene] = []
 
 @onready var parts: Node2D = $Graphics/AnimatedSprite/Parts
-@onready var whip: AnimatedSprite2D = $Graphics/AnimatedSprite/Parts/Whip
 @onready var player_detector: Area2D = $PlayerDetector
 @onready var minions: Node2D = $Minions
-
-func _ready() -> void:
-	super()
-	whip.animation_finished.connect(whip.play.bind(Anim.IDLE))
 
 func react_to_damage(damage: int, _damage_origin: Vector2, _knockback_force: float) -> void:
 	if is_alive():
@@ -95,9 +98,11 @@ func reveal() -> void:
 	multi_sound_2d.play(Voice.CLICK)
 	revealed.emit()
 
-func depart() -> void:
+func burst() -> void:
+	VFX.stop_blink(animated_sprite)
+	set_dash_pose(true)
+	explode(&"", Vector2.ZERO)
 	departed.emit()
-	queue_free()
 
 func face_target() -> void:
 	handle_rotation(signf(target.global_position.x - global_position.x))
@@ -132,7 +137,6 @@ func summon() -> void:
 	var minion: Minion = draw_attack().instantiate()
 	minions.add_child(minion)
 	minion.spawn(global_position, target, floor_span)
-	whip.play(Anim.SWING)
 
 func draw_attack() -> PackedScene:
 	if attack_bag.is_empty():
@@ -153,11 +157,30 @@ func is_dog(node: Node) -> bool:
 	return node is Entity
 
 func clear_minions() -> void:
-	for minion: Enemy in minions.get_children():
-		minion.dismiss()
+	for minion: Node in minions.get_children():
+		if minion is Enemy:
+			(minion as Enemy).dismiss()
 
 func wants_dash() -> bool:
 	return damage_since_dash >= dash_damage_threshold
+
+func pick_reposition_delay() -> float:
+	return randf_range(reposition_interval.x, reposition_interval.y)
+
+func pick_reposition_x() -> float:
+	for attempt: int in reposition_attempts:
+		var candidate: float = randf_range(
+			floor_span.x + reposition_edge_margin, floor_span.y - reposition_edge_margin)
+		if is_fair_reposition(candidate):
+			return candidate
+
+	return global_position.x
+
+func is_fair_reposition(candidate: float) -> bool:
+	var target_x: float = target.global_position.x
+	return (absf(candidate - global_position.x) >= reposition_min_distance
+		and absf(candidate - target_x) >= reposition_player_clearance
+		and signf(candidate - target_x) == signf(global_position.x - target_x))
 
 func pick_dash_direction() -> float:
 	var direction: float = [-1.0, 1.0].pick_random()

@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_shatter.gd" id="30_shatter"]
 [ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/shooter_cat.gd" id="1_cat"]
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/tasque_manager/tasque_cat.png" id="2_cat"]
 [ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="3_effects"]
@@ -16,7 +17,6 @@
 [ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/shooter_cat_state_wind_up.gd" id="16_wind_up"]
 [ext_resource type="Script" path="res://scripts/entity/bosses/tasque_manager/minions/states/shooter_cat_state_shoot.gd" id="17_shoot"]
 [ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_stunned.gd" id="18_stunned"]
-[ext_resource type="Script" path="res://scripts/entity/minions/states/minion_state_vanish.gd" id="19_vanish"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cat_0"]
 atlas = ExtResource("2_cat")
@@ -235,9 +235,8 @@ script = ExtResource("17_shoot")
 script = ExtResource("18_stunned")
 
 [node name="Leave" type="Node" parent="StateMachine"]
-script = ExtResource("19_vanish")
-drift = Vector2(0, 40)
+script = ExtResource("30_shatter")
 
 [node name="Dead" type="Node" parent="StateMachine"]
-script = ExtResource("19_vanish")
+script = ExtResource("30_shatter")
 particle_name = &"ParticlePoof"

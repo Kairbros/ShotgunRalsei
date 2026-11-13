@@ -27,7 +27,7 @@ func _ready() -> void:
 	hide()
 
 func _physics_process(delta: float) -> void:
-	if !interactive:
+	if !can_interact():
 		return
 
 	var axis: float = signf(Input.get_axis(InputNames.Move.LEFT, InputNames.Move.RIGHT))
@@ -37,12 +37,15 @@ func _physics_process(delta: float) -> void:
 	select(get_option_at(soul_offset))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if interactive and selected_option and event.is_action_pressed(InputNames.Menu.ACCEPT):
+	if can_interact() and selected_option and event.is_action_pressed(InputNames.Menu.ACCEPT):
 		confirm()
 
 func open() -> void:
 	HudFx.pop_in(self)
 	interactive = true
+
+func can_interact() -> bool:
+	return interactive and !GameManager.is_changing()
 
 func get_option_at(offset: float) -> StringName:
 	if offset <= -select_distance:

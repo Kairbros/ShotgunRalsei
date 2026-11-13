@@ -13,7 +13,7 @@ func start() -> void:
 	VFX.blink(boss.animated_sprite, boss.spare_duration)
 	timeline = boss.create_tween()
 	timeline.tween_interval(boss.spare_duration)
-	timeline.tween_callback(vanish)
+	timeline.tween_callback(boss.burst)
 
 func on_physics_process(delta: float) -> void:
 	super(delta)
@@ -21,6 +21,3 @@ func on_physics_process(delta: float) -> void:
 
 func exit() -> void:
 	timeline.kill()
-
-func vanish() -> void:
-	VFX.dissolve(boss.animated_sprite).finished.connect(boss.depart)

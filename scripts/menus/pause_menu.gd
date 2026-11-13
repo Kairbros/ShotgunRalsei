@@ -16,7 +16,7 @@ func _ready() -> void:
 	soul_menu.option_confirmed.connect(on_option_confirmed)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if !soul_menu.interactive:
+	if !soul_menu.can_interact():
 		return
 
 	if event.is_action_pressed(InputNames.Menu.PAUSE) or event.is_action_pressed(InputNames.Menu.BACK):

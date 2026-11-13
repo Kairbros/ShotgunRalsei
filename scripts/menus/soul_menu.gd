@@ -22,7 +22,7 @@ func _ready() -> void:
 	set_options(options)
 
 func _process(_delta: float) -> void:
-	if !interactive:
+	if !can_interact():
 		return
 
 	var step: int = get_step()
@@ -52,6 +52,9 @@ func open(index: int = selected_index) -> void:
 
 func close() -> void:
 	interactive = false
+
+func can_interact() -> bool:
+	return interactive and !GameManager.is_changing()
 
 func get_step() -> int:
 	if Input.is_action_just_pressed(InputNames.Move.LEFT if horizontal else InputNames.Menu.UP):
@@ -87,7 +90,7 @@ func confirm() -> void:
 	option_confirmed.emit(selected_index)
 
 func on_option_gui_input(event: InputEvent, index: int) -> void:
-	if !interactive or event is not InputEventMouse:
+	if !can_interact() or event is not InputEventMouse:
 		return
 
 	if index != selected_index:
