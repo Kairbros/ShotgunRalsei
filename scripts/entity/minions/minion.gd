@@ -6,8 +6,6 @@ class MinionState:
 	const LEAVE: StringName = &"Leave"
 	const DEAD: StringName = &"Dead"
 
-@export var body_center: Vector2 = Vector2(0, -16)
-
 @export_group("Prediction")
 @export var lead_strength: float = 0.7
 @export var max_lead_distance: float = 110.0

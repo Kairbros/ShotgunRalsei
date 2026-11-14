@@ -31,14 +31,14 @@ var chunks: Array[Chunk] = []
 var floor_y: float = INF
 var elapsed: float = 0.0
 
-static func spawn(source: AnimatedSprite2D, behind: Node2D) -> SpriteShatter:
+static func spawn(source: AnimatedSprite2D, behind: Node2D, probe_origin: Vector2) -> SpriteShatter:
 	var shatter: SpriteShatter = SpriteShatter.new()
 	shatter.name = NODE_NAME
 	shatter.material = source.material.duplicate() if source.material else null
 	shatter.build_chunks(source)
 	behind.add_sibling(shatter, true)
 	shatter.global_transform = source.global_transform
-	shatter.find_floor()
+	shatter.find_floor(probe_origin)
 	if shatter.material:
 		VFX.flash(shatter, FLASH_DURATION)
 	return shatter
@@ -76,9 +76,9 @@ func get_full_frame_image(frame_texture: Texture2D) -> Image:
 	padded.blit_rect(frame_image, Rect2i(Vector2i.ZERO, frame_image.get_size()), Vector2i(atlas.margin.position))
 	return padded
 
-func find_floor() -> void:
+func find_floor(probe_origin: Vector2) -> void:
 	var probe: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
-		global_position, global_position + Vector2.DOWN * FLOOR_PROBE_DISTANCE, TERRAIN_MASK)
+		probe_origin, probe_origin + Vector2.DOWN * FLOOR_PROBE_DISTANCE, TERRAIN_MASK)
 	var hit: Dictionary = get_world_2d().direct_space_state.intersect_ray(probe)
 	if hit:
 		var hit_position: Vector2 = hit[HIT_POSITION]

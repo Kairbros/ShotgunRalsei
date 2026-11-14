@@ -101,7 +101,7 @@ func reveal() -> void:
 func burst() -> void:
 	VFX.stop_blink(animated_sprite)
 	set_dash_pose(true)
-	explode(&"", Vector2.ZERO)
+	explode(&"")
 	departed.emit()
 
 func face_target() -> void:

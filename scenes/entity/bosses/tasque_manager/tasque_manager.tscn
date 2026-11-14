@@ -35,8 +35,8 @@
 [sub_resource type="Resource" id="Resource_phase_main"]
 script = ExtResource("2_phase")
 attacks = Array[PackedScene]([ExtResource("8_falling_cat"), ExtResource("9_shooter_cat")])
-interval_start = 1.5
-interval_end = 0.6
+interval_start = 1.0
+interval_end = 0.05
 opening_delay = 1.0
 voice = &"TasqueVoiceA"
 
@@ -151,6 +151,7 @@ dog_scene = ExtResource("10_dog")
 max_health = 250
 damage_amount = 15
 knockback_potency = 300.0
+body_center = Vector2(0, -34)
 
 [node name="Graphics" type="Node2D" parent="." unique_id=275552045]
 visible = false

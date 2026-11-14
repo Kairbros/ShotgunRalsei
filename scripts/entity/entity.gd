@@ -15,8 +15,6 @@ class Anim:
 class Particle:
 	const POOF: StringName = &"ParticlePoof"
 
-const BODY_CENTER: Vector2 = Vector2(0, -18)
-
 @export_group("Movement")
 @export var min_speed: float = 120.0
 @export var max_speed: float = 160.0

@@ -6,4 +6,4 @@ extends MinionStateBase
 func start() -> void:
 	minion.velocity = Vector2.ZERO
 	VFX.stop_blink(minion.animated_sprite)
-	minion.explode(particle_name, minion.body_center)
+	minion.explode(particle_name)

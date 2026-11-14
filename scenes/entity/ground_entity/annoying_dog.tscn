@@ -87,6 +87,7 @@ script = ExtResource("1_entity")
 max_health = 6
 damage_amount = 30
 knockback_potency = 360.0
+body_center = Vector2(0, -18)
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1573078854]
 

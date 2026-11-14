@@ -2,9 +2,9 @@ class_name GameOver
 extends CanvasLayer
 
 const LINES: Array[String] = [
-	"* No te rindas... aún puedes\n  volver a intentarlo",
-	"* Vamos...\n  inténtalo una vez más",
-	"* Levántate...",
+	"* No te rindas... aun puedes\n  volver a intentarlo",
+	"* Vamos...\n  intentalo una vez mas",
+	"* Levantate...",
 ]
 const TITLE_FADE_DURATION: float = 1.2
 const MUSIC_FADE_IN_DURATION: float = 2.5
@@ -62,7 +62,7 @@ func get_crack_duration() -> float:
 	return relative_time / frames.get_animation_speed(Anim.SHATTER)
 
 func break_heart() -> void:
-	SpriteShatter.spawn(heart, heart)
+	SpriteShatter.spawn(heart, heart, heart.global_position)
 	heart.hide()
 
 func end_shatter() -> void:

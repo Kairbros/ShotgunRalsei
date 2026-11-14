@@ -7,6 +7,8 @@ const HIT_SOUND: StringName = &"Hit"
 const SHATTER_DELAY: float = 0.08
 const REMOVAL_DELAY: float = 0.7
 
+@export var body_center: Vector2 = Vector2(0, -16)
+
 var state_timer: float = 0.0
 
 @onready var hitbox: Hitbox = $Hitbox
@@ -39,7 +41,7 @@ func react_to_damage(_damage: int, _damage_origin: Vector2, _knockback_force: fl
 func dismiss() -> void:
 	pass
 
-func explode(particle_name: StringName, burst_offset: Vector2) -> void:
+func explode(particle_name: StringName) -> void:
 	set_contact_damage(false)
 	set_vulnerable(false)
 	animated_sprite.pause()
@@ -47,16 +49,17 @@ func explode(particle_name: StringName, burst_offset: Vector2) -> void:
 
 	var death_tween: Tween = create_tween()
 	death_tween.tween_interval(SHATTER_DELAY)
-	death_tween.tween_callback(shatter.bind(particle_name, burst_offset))
+	death_tween.tween_callback(shatter.bind(particle_name))
 	death_tween.tween_interval(REMOVAL_DELAY)
 	death_tween.tween_callback(queue_free)
 
-func shatter(particle_name: StringName, burst_offset: Vector2) -> void:
-	SpriteShatter.spawn(animated_sprite, self)
+func shatter(particle_name: StringName) -> void:
+	var center: Vector2 = global_position + body_center
+	SpriteShatter.spawn(animated_sprite, self, center)
 	animated_sprite.hide()
 
 	if particle_name:
-		multi_particle_2d.emit(particle_name, global_position + burst_offset)
+		multi_particle_2d.emit(particle_name, center)
 
 func enter_timed_state(state_name: StringName, duration: float) -> void:
 	state_timer = duration

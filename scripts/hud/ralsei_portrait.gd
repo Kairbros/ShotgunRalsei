@@ -5,9 +5,9 @@ signal spoke(line: String)
 
 const DEAD_FADE_DURATION: float = 0.6
 
-const HURT_LINES: Array[String] = ["* ¡Eso dolió!", "* ¡¡OYE!!", "* ¡Hey!", "* ¡Auch!"]
-const HEAL_LINES: Array[String] = ["* ¡Mucho mejor!", "* ¡Me siento genial!"]
-const PARRY_LINES: Array[String] = ["* ¡Ja!", "* ¡Bloqueado!", "* ¡Toma esa!"]
+const HURT_LINES: Array[String] = ["* Eso dolio!", "* OYE!!", "* Hey!", "* Auch!"]
+const HEAL_LINES: Array[String] = ["* Mucho mejor!", "* Me siento genial!"]
+const PARRY_LINES: Array[String] = ["* Ja!", "* Bloqueado!", "* Toma esa!"]
 const DEATH_LINES: Array[String] = ["* Lo siento..."]
 
 class Face:

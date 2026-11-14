@@ -43,7 +43,7 @@
 [ext_resource type="PackedScene" path="res://scenes/particles/particle_parry.tscn" id="43_particle_parry"]
 [ext_resource type="PackedScene" path="res://scenes/particles/particle_charge.tscn" id="44_particle_charge"]
 [ext_resource type="PackedScene" path="res://scenes/particles/particle_heal.tscn" id="45_particle_heal"]
-[ext_resource type="Material" path="res://assets/shaders/materials/sprite_effects.tres" id="46_effects"]
+[ext_resource type="Material" uid="uid://ct4dxcek6yxxc" path="res://assets/shaders/materials/sprite_effects.tres" id="46_effects"]
 [ext_resource type="Script" uid="uid://d04lu18xw0qk3" path="res://scripts/player/components/power_meter.gd" id="47_power_meter"]
 [ext_resource type="Script" uid="uid://chbp4ex2jw24q" path="res://scripts/player/components/dash_charges.gd" id="48_dash_charges"]
 [ext_resource type="Script" uid="uid://viymw0fxar41" path="res://scripts/common/countdown.gd" id="49_countdown"]
@@ -474,7 +474,7 @@ collision_mask = 8208
 platform_on_leave = 1
 platform_wall_layers = 16
 script = ExtResource("1_player")
-damage_amount = 2
+damage_amount = 4
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1669226636]
 

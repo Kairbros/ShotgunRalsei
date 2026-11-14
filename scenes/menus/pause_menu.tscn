@@ -70,7 +70,7 @@ offset_top = 64.0
 offset_right = 210.0
 offset_bottom = 96.0
 theme_override_font_sizes/font_size = 24
-text = "Salir al menú"
+text = "Salir al menu"
 vertical_alignment = 1
 
 [node name="Soul" parent="Panel/SoulMenu" instance=ExtResource("5_soul_cursor")]
