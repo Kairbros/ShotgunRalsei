@@ -20,6 +20,7 @@ func on_physics_process(delta: float) -> void:
 		state_machine.change_state(TasqueManager.State.ATTACK)
 		return
 
+	boss.update_summons(delta)
 	boss.handle_rotation(signf(offset))
 	boss.velocity.x = move_toward(
 		boss.velocity.x, signf(offset) * boss.reposition_speed, boss.reposition_speed * Enemy.Acceleration.HIGH * delta)

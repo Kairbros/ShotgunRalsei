@@ -1,16 +1,13 @@
 extends TasqueStateBase
 
-var spawn_timer: float = 0.0
 var reposition_timer: float = 0.0
 
 func start() -> void:
 	boss.set_dash_pose(false)
+	boss.refresh_phase()
 
 	if reposition_timer <= 0.0:
 		reposition_timer = boss.pick_reposition_delay()
-
-	if boss.update_phase():
-		spawn_timer = boss.get_phase().opening_delay
 
 func on_physics_process(delta: float) -> void:
 	super(delta)
@@ -20,9 +17,6 @@ func on_physics_process(delta: float) -> void:
 		return
 
 	boss.face_target()
-
-	if boss.update_phase():
-		spawn_timer = boss.get_phase().opening_delay
 
 	if boss.wants_dash():
 		state_machine.change_state(TasqueManager.State.DASH_WIND_UP)
@@ -34,8 +28,4 @@ func on_physics_process(delta: float) -> void:
 		state_machine.change_state(TasqueManager.State.REPOSITION)
 		return
 
-	spawn_timer = move_toward(spawn_timer, 0.0, delta)
-
-	if spawn_timer <= 0.0:
-		boss.summon()
-		spawn_timer = boss.get_spawn_interval()
+	boss.update_summons(delta)

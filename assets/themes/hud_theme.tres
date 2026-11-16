@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://davwohmvkv8ij"]
 
-[ext_resource type="FontVariation" path="res://assets/fonts/hud_font.tres" id="1_font"]
+[ext_resource type="FontVariation" uid="uid://u5k20f4hrqg7" path="res://assets/fonts/hud_font.tres" id="1_font"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0, 0, 0, 1)

@@ -34,9 +34,6 @@ class Particle:
 	const DASH: StringName = &"ParticleDash"
 	const LAND: StringName = &"ParticleLand"
 
-class Property:
-	const MODULATE: NodePath = ^"modulate"
-
 @export var phases: Array[TasquePhase] = []
 @export var floor_span: Vector2 = Vector2(60.0, 1080.0)
 
@@ -73,6 +70,7 @@ class Property:
 var target: Player = null
 var phase_index: int = -1
 var damage_since_dash: int = 0
+var spawn_timer: float = 0.0
 var attack_bag: Array[PackedScene] = []
 
 @onready var parts: Node2D = $Graphics/AnimatedSprite/Parts
@@ -133,6 +131,21 @@ func get_spawn_interval() -> float:
 	var progress: float = clampf(inverse_lerp(phase.starts_at, ends_at, get_health_ratio()), 0.0, 1.0)
 	return lerpf(phase.interval_start, phase.interval_end, progress)
 
+func update_summons(delta: float) -> void:
+	if !target.is_alive():
+		return
+
+	refresh_phase()
+	spawn_timer = move_toward(spawn_timer, 0.0, delta)
+
+	if spawn_timer <= 0.0:
+		summon()
+		spawn_timer = get_spawn_interval()
+
+func refresh_phase() -> void:
+	if update_phase():
+		spawn_timer = get_phase().opening_delay
+
 func summon() -> void:
 	var minion: Minion = draw_attack().instantiate()
 	minions.add_child(minion)
@@ -157,9 +170,8 @@ func is_dog(node: Node) -> bool:
 	return node is Entity
 
 func clear_minions() -> void:
-	for minion: Node in minions.get_children():
-		if minion is Enemy:
-			(minion as Enemy).dismiss()
+	for minion: Enemy in minions.get_children():
+		minion.dismiss()
 
 func wants_dash() -> bool:
 	return damage_since_dash >= dash_damage_threshold
@@ -202,11 +214,4 @@ func shake_screen() -> void:
 	target.shake_camera(dash_shake_magnitude)
 
 func spawn_afterimage() -> void:
-	var afterimage: Sprite2D = GhostTrail.create_ghost(animated_sprite)
-	afterimage.modulate = AFTERIMAGE_COLOR
-	add_sibling(afterimage, true)
-	get_parent().move_child(afterimage, get_index())
-	afterimage.global_transform = animated_sprite.global_transform
-	var fade_tween: Tween = afterimage.create_tween()
-	fade_tween.tween_property(afterimage, Property.MODULATE, AFTERIMAGE_FADED, AFTERIMAGE_DURATION)
-	fade_tween.tween_callback(afterimage.queue_free)
+	GhostTrail.spawn(animated_sprite, self, AFTERIMAGE_COLOR, AFTERIMAGE_FADED, AFTERIMAGE_DURATION)

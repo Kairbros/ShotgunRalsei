@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dxq3ruem6wvtt"]
 
+[ext_resource type="Script" path="res://scripts/common/effects_layer.gd" id="90_effects"]
 [ext_resource type="Script" uid="uid://b15n1blmwcpd1" path="res://scripts/levels/tasque_arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" uid="uid://wxthu8i7b3bd" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://dtmcl0q0mdhc6" path="res://scenes/hud/hud.tscn" id="3_hud"]
@@ -85,6 +86,9 @@ shape = SubResource("RectangleShape2D_wall_left")
 [node name="WallRight" type="CollisionShape2D" parent="Terrain" unique_id=54252267]
 position = Vector2(1130, 390)
 shape = SubResource("RectangleShape2D_wall_right")
+
+[node name="Effects" type="Node2D" parent="."]
+script = ExtResource("90_effects")
 
 [node name="TasqueManager" parent="." unique_id=2073344259 instance=ExtResource("5_boss")]
 position = Vector2(620, 680)

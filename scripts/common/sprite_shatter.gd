@@ -36,7 +36,7 @@ static func spawn(source: AnimatedSprite2D, behind: Node2D, probe_origin: Vector
 	shatter.name = NODE_NAME
 	shatter.material = source.material.duplicate() if source.material else null
 	shatter.build_chunks(source)
-	behind.add_sibling(shatter, true)
+	EffectsLayer.add(shatter, behind)
 	shatter.global_transform = source.global_transform
 	shatter.find_floor(probe_origin)
 	if shatter.material:

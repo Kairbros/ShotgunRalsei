@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c6cysbtt3p57j"]
 
+[ext_resource type="Script" path="res://scripts/common/effects_layer.gd" id="90_effects"]
 [ext_resource type="PackedScene" uid="uid://wxthu8i7b3bd" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/entity/ground_entity/annoying_dog.tscn" id="2_annoying_dog"]
 [ext_resource type="PackedScene" path="res://scenes/hud/hud.tscn" id="3_hud"]
@@ -86,6 +87,9 @@ shape = SubResource("RectangleShape2D_Step")
 [node name="Polygon" type="Polygon2D" parent="Terrain/Step" unique_id=3334519]
 color = Color(0.16, 0.2, 0.32, 1)
 polygon = PackedVector2Array(-100, -20, 100, -20, 100, 20, -100, 20)
+
+[node name="Effects" type="Node2D" parent="."]
+script = ExtResource("90_effects")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2107171399]
 
